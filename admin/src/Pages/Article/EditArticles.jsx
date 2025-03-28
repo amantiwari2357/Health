@@ -25,7 +25,7 @@ const EditArticles = () => {
     const fetchEventData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/get-single-events/${id}`
+          `https://api.swhealthcares.com/api/get-single-events/${id}`
         );
         setEventData({
           eventName: response.data.eventName,
@@ -89,7 +89,7 @@ const EditArticles = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/update-events/${id}`,
+        `https://api.swhealthcares.com/api/update-events/${id}`,
         formData,
         {
           headers: {
@@ -129,7 +129,7 @@ const EditArticles = () => {
         <form className="row g-3" onSubmit={handleSubmit}>
           <div className="col-md-6">
             <label htmlFor="eventName" className="form-label">
-            Article Name<sup className="text-danger">*</sup>
+              Article Name<sup className="text-danger">*</sup>
             </label>
             <input
               type="text"
@@ -144,7 +144,7 @@ const EditArticles = () => {
 
           <div className="col-md-6">
             <label htmlFor="eventHeading" className="form-label">
-            Article Heading<sup className="text-danger">*</sup>
+              Article Heading<sup className="text-danger">*</sup>
             </label>
             <input
               type="text"
@@ -159,7 +159,7 @@ const EditArticles = () => {
 
           <div className="col-md-12">
             <label htmlFor="eventDetails" className="form-label">
-            Article Details<sup className="text-danger">*</sup>
+              Article Details<sup className="text-danger">*</sup>
             </label>
             <JoditEditor
               ref={editor}
@@ -170,7 +170,7 @@ const EditArticles = () => {
 
           <div className="col-md-6">
             <label htmlFor="eventImage" className="form-label">
-            Article Image
+              Article Image
             </label>
             <input
               type="file"

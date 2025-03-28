@@ -20,7 +20,7 @@ const EditCategory = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/signle-category/${id}`
+          `https://api.swhealthcares.com/api/signle-category/${id}`
         );
         const { categoryName, categoryImage, categoryStatus } = response.data;
         setCategoryName(categoryName);
@@ -46,7 +46,7 @@ const EditCategory = () => {
 
     try {
       await axios.put(
-        `http://localhost:8000/api/update-category/${id}`,
+        `https://api.swhealthcares.com/api/update-category/${id}`,
         formData,
         {
           headers: {

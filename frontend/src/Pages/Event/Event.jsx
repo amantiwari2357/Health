@@ -8,7 +8,7 @@ const Events = () => {
   const getapiData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/events/all-event"
+        "https://api.swhealthcares.com/api/events/all-event"
       );
       setData(response.data.events);
       console.log(response.data.events);
@@ -57,21 +57,23 @@ const Events = () => {
       <section className="events-section py-5">
         <div className="container">
           <div className="row g-4">
-          <div className="event-container">
-  {data &&
-    data.map((event, eventIndex) =>
-      event.eventImages.map((image, imgIndex) => (
-        <div className="col-md-3 col-sm-6 col-12 event-card" key={`${eventIndex}-${imgIndex}`}>
-          <img
-            src={image}
-            alt={`Event ${imgIndex + 1}`}
-            className="event-card-img"
-          />
-        </div>
-      ))
-    )}
-</div>
-
+            <div className="event-container">
+              {data &&
+                data.map((event, eventIndex) =>
+                  event.eventImages.map((image, imgIndex) => (
+                    <div
+                      className="col-md-3 col-sm-6 col-12 event-card"
+                      key={`${eventIndex}-${imgIndex}`}
+                    >
+                      <img
+                        src={image}
+                        alt={`Event ${imgIndex + 1}`}
+                        className="event-card-img"
+                      />
+                    </div>
+                  ))
+                )}
+            </div>
           </div>
         </div>
       </section>

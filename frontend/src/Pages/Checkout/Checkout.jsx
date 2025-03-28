@@ -22,9 +22,9 @@ const Checkout = () => {
   const getApiData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/get-user/" + userId
+        "https://api.swhealthcares.com/api/get-user/" + userId
       );
-      
+
       if (res.status === 200) {
         setUserData(res.data.data);
       }
@@ -35,22 +35,26 @@ const Checkout = () => {
 
   const applyVoucher = async () => {
     try {
-      setError("")
-      setSuccess("")
+      setError("");
+      setSuccess("");
       const response = await axios.post(
-        "http://localhost:8000/api/coupon/validate-voucher",
+        "https://api.swhealthcares.com/api/coupon/validate-voucher",
         { code: voucherCode }
       );
 
       if (response.data.success) {
         setDiscount(response.data.discount);
-        let discount=response.data.discount
+        let discount = response.data.discount;
         if (discount > 100) {
           setSubtotal(originalSubtotal - discount);
         } else {
           setSubtotal(originalSubtotal - (discount / 100) * originalSubtotal);
         }
-        setSuccess(`Voucher applied! Discount: ${discount < 100 ? `${discount }%`: `₹${discount }` } `);
+        setSuccess(
+          `Voucher applied! Discount: ${
+            discount < 100 ? `${discount}%` : `₹${discount}`
+          } `
+        );
       } else {
         setError("Invalid or expired voucher!");
       }
@@ -123,7 +127,7 @@ const Checkout = () => {
     if (pincode) {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/all-pincode"
+          "https://api.swhealthcares.com/api/all-pincode"
         );
         const pinCodeData = response.data.find(
           (item) => item.pincode === parseInt(pincode)
@@ -154,7 +158,7 @@ const Checkout = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "postalCode") {
       if (value === "") {
         setShipping(0);
@@ -168,8 +172,8 @@ const Checkout = () => {
 
   const handleConfirmOrder = async (event) => {
     event.preventDefault();
-    if(shippingAddress.phone.length !== 10){
-      alert("Please enter a valid phone number")
+    if (shippingAddress.phone.length !== 10) {
+      alert("Please enter a valid phone number");
     }
     Swal.fire({
       title: "Confirm Your Order",
@@ -193,7 +197,7 @@ const Checkout = () => {
 
         try {
           const res = await axios.post(
-            "http://localhost:8000/api/checkout",
+            "https://api.swhealthcares.com/api/checkout",
             checkoutData
           );
           console.log(res);
@@ -209,7 +213,7 @@ const Checkout = () => {
                 order_id: razorpayOrder.id,
                 handler: async (response) => {
                   const verifyResponse = await axios.post(
-                    "http://localhost:8000/api/payment/verify",
+                    "https://api.swhealthcares.com/api/payment/verify",
                     {
                       razorpay_payment_id: response.razorpay_payment_id,
                       razorpay_order_id: response.razorpay_order_id,
@@ -472,7 +476,7 @@ const Checkout = () => {
                     onChange={(e) => {
                       if (e.target.value === "") {
                         setError("");
-                        setSuccess("")
+                        setSuccess("");
                       }
                       setVoucherCode(e.target.value);
                     }}
@@ -488,13 +492,13 @@ const Checkout = () => {
                     </p>
                   ) : (
                     <p
-                    style={{
-                      color: "green",
-                      display: success ? "block" : "none",
-                    }}
-                  >
-                    {success ? success : ""}
-                  </p>
+                      style={{
+                        color: "green",
+                        display: success ? "block" : "none",
+                      }}
+                    >
+                      {success ? success : ""}
+                    </p>
                   )}
 
                   <button onClick={applyVoucher}>Apply</button>

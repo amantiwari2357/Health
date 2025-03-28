@@ -15,7 +15,7 @@ const AllVouchers = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/coupon/all-vouchers"
+          "https://api.swhealthcares.com/api/coupon/all-vouchers"
         );
         setVouchers(response.data.data);
       } catch (error) {
@@ -42,9 +42,9 @@ const AllVouchers = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `http://localhost:8000/api/coupon/delete-vouchers/${id}`
+          `https://api.swhealthcares.com/api/coupon/delete-vouchers/${id}`
         );
-        setVouchers(vouchers.filter((event) => event._id !== id)); 
+        setVouchers(vouchers.filter((event) => event._id !== id));
         Swal.fire("Deleted!", "Your voucher has been deleted.", "success");
       }
     } catch (error) {
@@ -102,13 +102,14 @@ const AllVouchers = () => {
               vouchers?.map((voucher, index) => (
                 <tr key={voucher._id}>
                   <th scope="row">{index + 1}</th>
-                  <td>
-                   {voucher.code}
-                  </td>
+                  <td>{voucher.code}</td>
                   <td>{voucher.discount}</td>
                   <td>{voucher.vouchersStatus ? "Active" : "Inactive"}</td>
                   <td>
-                    <Link to={`/edit-voucher/${voucher._id}`} className="bt edit">
+                    <Link
+                      to={`/edit-voucher/${voucher._id}`}
+                      className="bt edit"
+                    >
                       Edit <i className="fa-solid fa-pen-to-square"></i>
                     </Link>
                   </td>

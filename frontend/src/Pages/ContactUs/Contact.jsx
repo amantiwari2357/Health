@@ -5,7 +5,7 @@ import address from "../../images/address.gif";
 import email from "../../images/email.gif";
 import time from "../../images/time.gif";
 import { Link } from "react-router-dom";
-import gmap from '../../images/gmap.png'
+import gmap from "../../images/gmap.png";
 
 import { Helmet } from "react-helmet";
 import axios from "axios";
@@ -28,7 +28,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/send-enquery",
+        "https://api.swhealthcares.com/api/send-enquery",
         data
       );
       if (res.status === 200) {
@@ -282,12 +282,13 @@ const Contact = () => {
       </section>
 
       <section className="gmap-section">
-        <h2 className="text-center">Our <span style={{ color: "rgb(110, 132, 208)" }}>Branches</span></h2>
+        <h2 className="text-center">
+          Our <span style={{ color: "rgb(110, 132, 208)" }}>Branches</span>
+        </h2>
         <div className="our-branches">
           <img src={gmap} alt="" className="gmapimage" />
         </div>
       </section>
-
 
       <section className="maps">
         <iframe

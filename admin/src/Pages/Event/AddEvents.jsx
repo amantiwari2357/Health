@@ -15,14 +15,14 @@ const AddEvents = () => {
   // Handle file input change
   const handleFileChange = (e) => {
     const { name, files } = e.target;
-  
+
     if (files && files.length > 0) {
       const newFiles = Array.from(files);
 
       setData((prevData) => ({
         ...prevData,
         [name]: newFiles,
-      }));;
+      }));
     }
   };
 
@@ -32,25 +32,25 @@ const AddEvents = () => {
     setIsLoading(true);
 
     const formData = new FormData();
-   
-    if(data.eventsImage){
-data.eventsImage.forEach((image) => {
-  formData.append("eventImages", image);
-})
+
+    if (data.eventsImage) {
+      data.eventsImage.forEach((image) => {
+        formData.append("eventImages", image);
+      });
     }
-    
+
     formData.append("eventsStatus", data.eventsStatus);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/events/create-event",
+        "https://api.swhealthcares.com/api/events/create-event",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
-      );  
+      );
 
       toast.success("events added successfully!");
       navigate("/all-events");
@@ -83,7 +83,7 @@ data.eventsImage.forEach((image) => {
         <form className="row g-3" onSubmit={handleSubmit}>
           <div className="col-md-6">
             <label htmlFor="eventsImage" className="form-label">
-            Events Image<sup className="text-danger">*</sup>
+              Events Image<sup className="text-danger">*</sup>
             </label>
             <input
               type="file"

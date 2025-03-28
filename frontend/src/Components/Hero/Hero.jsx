@@ -18,12 +18,12 @@ const Hero = () => {
   const [selectedWeights, setSelectedWeights] = useState({});
   const [products, setProducts] = useState([]);
   const [banner, setBanner] = useState([]);
-const [article, setArticle] = useState([]);
+  const [article, setArticle] = useState([]);
   const fetchBanners = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/all-banner"
+        "https://api.swhealthcares.com/api/all-banner"
       );
       console.log(response);
       const newData = response.data.banners;
@@ -39,7 +39,7 @@ const [article, setArticle] = useState([]);
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/get-product"
+        "https://api.swhealthcares.com/api/get-product"
       );
       const productData = response.data.products || [];
       const bestsellers = productData.filter(
@@ -50,7 +50,6 @@ const [article, setArticle] = useState([]);
       console.error("Error fetching products:", error);
     }
   };
-
 
   const handleViewDetails = (product) => {
     navigate(
@@ -151,23 +150,23 @@ const [article, setArticle] = useState([]);
     return text;
   }
 
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.swhealthcares.com/api/all-events"
+      );
+      console.log("fetch article", response.data);
 
-
-const fetchArticles = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/api/all-events");
-    console.log("fetch article",response.data);
-    
-    setArticle(response.data);
-  } catch (error) {
-    console.error("Error fetching articles:", error);
-  }
-};
+      setArticle(response.data);
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    }
+  };
   useEffect(() => {
     fetchBanners();
     fetchProducts();
     fetchArticles();
-  },[])
+  }, []);
   return (
     <>
       <section className="sidebutton">
@@ -190,7 +189,6 @@ const fetchArticles = async () => {
           <div
             id="carouselExampleControls"
             data-bs-target="#carouselExampleControls"
-
             className="carousel slide"
             data-bs-ride="carousel"
             data-bs-interval="2000"
@@ -428,8 +426,16 @@ const fetchArticles = async () => {
                     <div>
                       <div className="article_card">
                         <img src={item.eventImage} alt="" />
-                        <h5 dangerouslySetInnerHTML={{ __html: truncateText(item.eventName, 20) }}></h5>
-                        <p dangerouslySetInnerHTML={{ __html: truncateText(item.eventDetails, 50) }}></p>
+                        <h5
+                          dangerouslySetInnerHTML={{
+                            __html: truncateText(item.eventName, 20),
+                          }}
+                        ></h5>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: truncateText(item.eventDetails, 50),
+                          }}
+                        ></p>
 
                         <p className="date">{item.date}</p>
                         <div className="d-flex justify-start">

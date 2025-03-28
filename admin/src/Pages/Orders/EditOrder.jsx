@@ -58,21 +58,26 @@ const styles = StyleSheet.create({
 const InvoicePDF = ({ order }) => {
   const [taxDetails, setTaxDetails] = useState([]);
   useEffect(() => {
-
     const fetchTaxDetails = async () => {
       const details = [];
       for (const product of order.products) {
-
         console.log("order1", product.price);
         try {
-          const response = await axios.get(`http://localhost:8000/api/single-product/${product.productId}`);
+          const response = await axios.get(
+            `https://api.swhealthcares.com/api/single-product/${product.productId}`
+          );
           const productDetails = response.data.product;
 
           if (response.status === 200) {
             console.log("order22222222", productDetails);
 
-            if (productDetails.productInfo && productDetails.productInfo.length > 0) {
-              const productInfo = productDetails.productInfo.find(info => info.productFinalPrice === product.price);
+            if (
+              productDetails.productInfo &&
+              productDetails.productInfo.length > 0
+            ) {
+              const productInfo = productDetails.productInfo.find(
+                (info) => info.productFinalPrice === product.price
+              );
               const tax = productInfo ? productInfo.tax : 0;
               details.push({ ...product, tax });
             } else {
@@ -80,7 +85,6 @@ const InvoicePDF = ({ order }) => {
               details.push({ ...product, tax });
             }
           }
-
         } catch (error) {
           console.log(`Error fetching product details for ID:`, error);
           toast.error(`Failed to fetch tax details for ${product.productName}`);
@@ -102,18 +106,22 @@ const InvoicePDF = ({ order }) => {
           Customer Name: {order.shippingAddress.name}
         </Text>
         <Text style={styles.section}>
-          Address: {order.shippingAddress.address}, {order.shippingAddress.city}, {" "}
-          {order.shippingAddress.state}, {order.shippingAddress.country} -{" "}
+          Address: {order.shippingAddress.address}, {order.shippingAddress.city}
+          , {order.shippingAddress.state}, {order.shippingAddress.country} -{" "}
           {order.shippingAddress.postalCode}
         </Text>
-        <Text style={styles.section}>Order Date: {new Date(order.orderDate).toLocaleString()}</Text>
+        <Text style={styles.section}>
+          Order Date: {new Date(order.orderDate).toLocaleString()}
+        </Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, { backgroundColor: "#ddd" }]}>
             <Text style={[styles.tableCol, styles.bold]}>Product Name</Text>
             {/* <Text style={[styles.tableCol, styles.bold]}>Weight</Text> */}
             <Text style={[styles.tableCol, styles.bold]}>Quantity</Text>
             <Text style={[styles.tableCol, styles.bold]}>Tax (%)</Text>
-            <Text style={[styles.tableCol, styles.bold]}>Price (Excl. Tax)</Text>
+            <Text style={[styles.tableCol, styles.bold]}>
+              Price (Excl. Tax)
+            </Text>
             <Text style={[styles.tableCol, styles.bold]}>Final Price</Text>
           </View>
           {taxDetails.map((product, index) => (
@@ -126,12 +134,14 @@ const InvoicePDF = ({ order }) => {
                 {Number(product.tax).toFixed(2)}%
               </Text>
               <Text style={styles.tableCol}>
-                ₹{Number(product.price / (1 + product.tax / 100))
+                ₹
+                {Number(product.price / (1 + product.tax / 100))
                   .toFixed(2)
                   .replace(/[^\d.-]/g, "")}
               </Text>
               <Text style={styles.tableCol}>
-                ₹{Number(product.price)
+                ₹
+                {Number(product.price)
                   .toFixed(2)
                   .replace(/[^\d.-]/g, "")}
               </Text>
@@ -141,7 +151,11 @@ const InvoicePDF = ({ order }) => {
 
         {/* <Text style={styles.section}>Price : ₹{order.shippingCost}</Text> */}
         <Text style={styles.section}>Shipping Cost: ₹{order.shippingCost}</Text>
-        {order?.voucher === 0 ? "" : <Text style={styles.section}>Total Amount: ₹{order.totalAmount}</Text>}
+        {order?.voucher === 0 ? (
+          ""
+        ) : (
+          <Text style={styles.section}>Total Amount: ₹{order.totalAmount}</Text>
+        )}
         <Text style={styles.section}>Total Amount: ₹{order.totalAmount}</Text>
         <Text style={styles.footer}>Thank you for your order!</Text>
       </Page>
@@ -161,7 +175,7 @@ const EditOrder = () => {
     const fetchOrder = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/single-order-data/${orderId}`
+          `https://api.swhealthcares.com/api/single-order-data/${orderId}`
         );
         if (response.data.success) {
           setOrder(response.data.data);
@@ -184,7 +198,7 @@ const EditOrder = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/update-order/${orderId}`,
+        `https://api.swhealthcares.com/api/update-order/${orderId}`,
         {
           orderStatus,
           paymentStatus,
@@ -210,7 +224,7 @@ const EditOrder = () => {
   if (!order) {
     return <div>No order data available.</div>;
   }
-  console.log("DDDD", order)
+  console.log("DDDD", order);
   return (
     <>
       <ToastContainer />
@@ -240,7 +254,9 @@ const EditOrder = () => {
                     loading ? (
                       <button className="btn btn-secondary">Loading...</button>
                     ) : (
-                      <button className="btn btn-success">Download Invoice</button>
+                      <button className="btn btn-success">
+                        Download Invoice
+                      </button>
                     )
                   }
                 </PDFDownloadLink>
@@ -366,15 +382,15 @@ const EditOrder = () => {
             </div>
           </div>
         </div>
-        <div className="" style={{ display: 'flex', gap: '10px' }}>
+        <div className="" style={{ display: "flex", gap: "10px" }}>
           <button className="btn btn-primary" onClick={handleUpdate}>
             Save Changes
           </button>
-          <button className="btn btn-primary" onClick={'handleLogin'}>
+          <button className="btn btn-primary" onClick={"handleLogin"}>
             Ready To Ship
           </button>
         </div>
-      </div >
+      </div>
     </>
   );
 };

@@ -8,7 +8,7 @@ import CustomLoader from "../../Components/CustomLoader/CustomLoader";
 const AddVouchers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [vouchersName, setVouchersName] = useState("");
- const [discount, setDiscount] = useState("");
+  const [discount, setDiscount] = useState("");
   const [vouchersStatus, setVouchersStatus] = useState(false);
   const navigate = useNavigate();
 
@@ -16,16 +16,15 @@ const AddVouchers = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const formData = {}
-    formData.code = vouchersName
-    formData.discount = discount
-    formData.status = vouchersStatus
-    
+    const formData = {};
+    formData.code = vouchersName;
+    formData.discount = discount;
+    formData.status = vouchersStatus;
+
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/coupon/create-vouchers",
-        formData,
-       
+        "https://api.swhealthcares.com/api/coupon/create-vouchers",
+        formData
       );
       setIsLoading(false);
       toast.success("Vouchers added successfully!");
@@ -34,7 +33,8 @@ const AddVouchers = () => {
       setIsLoading(false);
       toast.error(
         error?.response?.data?.errors?.vouchersName ||
-          error?.response?.data?.message || "Failed to add vouchers"
+          error?.response?.data?.message ||
+          "Failed to add vouchers"
       );
       console.log(error);
     }

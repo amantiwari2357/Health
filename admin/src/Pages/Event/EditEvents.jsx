@@ -19,7 +19,7 @@ const EditEvents = () => {
     const fetcheventsData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/events/single-event/${id}`
+          `https://api.swhealthcares.com/api/events/single-event/${id}`
         );
 
         setEventsData({
@@ -69,15 +69,14 @@ const EditEvents = () => {
 
     formData.append("eventStatus", eventsData.eventsStatus);
     if (eventsData.eventsImage) {
-     eventsData.eventsImage.forEach((image) => {
-       formData.append("eventImages", image);
-     })
-     
+      eventsData.eventsImage.forEach((image) => {
+        formData.append("eventImages", image);
+      });
     }
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/events/update-event/${id}`,
+        `https://api.swhealthcares.com/api/events/update-event/${id}`,
         formData,
         {
           headers: {

@@ -38,14 +38,13 @@ const Header = () => {
     }
   };
 
-
   //   if (value.trim() === "") {
   //     setSearchResults([]);
   //     return;
   //   }
 
   //   try {
-  //     const response = await axios.get(`http://localhost:8000/api/search`, {
+  //     const response = await axios.get(`https://api.swhealthcares.com/api/search`, {
   //       params: { productName: value }, // Pass query params in Axios
   //     });
   //     console.log(response);
@@ -115,7 +114,7 @@ const Header = () => {
           {/* Responsive Top Header */}
           <div className="row responsiveHeaderTop">
             <div className="col-8 p-0">
-            <input
+              <input
                 type="text"
                 placeholder="Search Products..."
                 value={searchTerm}
@@ -125,7 +124,10 @@ const Header = () => {
             </div>
             <div className="col-4 p-0 text-end">
               <div className="top-header-search">
-                <button onClick={() => navigate("/register")} className="btn btn-primary">
+                <button
+                  onClick={() => navigate("/register")}
+                  className="btn btn-primary"
+                >
                   <i className="bi bi-person" aria-hidden="true"></i> Register
                 </button>
               </div>
@@ -146,7 +148,6 @@ const Header = () => {
           ) : null}
         </div>
       </section>
-
 
       {/* Main Header */}
       <header className="main-header">

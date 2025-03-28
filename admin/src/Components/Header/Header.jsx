@@ -16,7 +16,7 @@ const Header = () => {
   const logout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/log-out",
+        "https://api.swhealthcares.com/api/log-out",
         {},
         { withCredentials: true }
       );
@@ -148,7 +148,6 @@ const Header = () => {
                   : ""
               }
             >
-              
               <Link to="/all-articles" onClick={handletoggleBtn}>
                 {" "}
                 <i class="fa-solid fa-calendar-check"></i> Manage Articles
@@ -164,7 +163,6 @@ const Header = () => {
                   : ""
               }
             >
-              
               <Link to="/all-events" onClick={handletoggleBtn}>
                 {" "}
                 <i class="fa-solid fa-calendar-check"></i> Manage Events
@@ -179,7 +177,6 @@ const Header = () => {
                   : ""
               }
             >
-              
               <Link to="/all-vouchers" onClick={handletoggleBtn}>
                 {" "}
                 <i class="fa-solid fa-calendar-check"></i> Manage Vouchers

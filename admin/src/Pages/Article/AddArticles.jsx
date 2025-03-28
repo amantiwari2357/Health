@@ -70,7 +70,7 @@ const AddArticles = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/add-events",
+        "https://api.swhealthcares.com/api/add-events",
         formData,
         {
           headers: {
@@ -110,7 +110,7 @@ const AddArticles = () => {
         <form className="row g-3" onSubmit={handleSubmit}>
           <div className="col-md-6">
             <label htmlFor="eventName" className="form-label">
-            Article Name<sup className="text-danger">*</sup>
+              Article Name<sup className="text-danger">*</sup>
             </label>
             <input
               type="text"
@@ -126,7 +126,7 @@ const AddArticles = () => {
 
           <div className="col-md-6">
             <label htmlFor="eventHeading" className="form-label">
-            Article Heading<sup className="text-danger">*</sup>
+              Article Heading<sup className="text-danger">*</sup>
             </label>
             <input
               type="text"
@@ -142,7 +142,7 @@ const AddArticles = () => {
 
           <div className="col-md-12">
             <label htmlFor="eventDetails" className="form-label">
-            Article Details<sup className="text-danger">*</sup>
+              Article Details<sup className="text-danger">*</sup>
             </label>
             <JoditEditor
               ref={editor}
@@ -153,7 +153,7 @@ const AddArticles = () => {
 
           <div className="col-md-6">
             <label htmlFor="eventImage" className="form-label">
-            Article Image<sup className="text-danger">*</sup>
+              Article Image<sup className="text-danger">*</sup>
             </label>
             <input
               type="file"
@@ -167,7 +167,7 @@ const AddArticles = () => {
 
           <div className="col-md-6">
             <label htmlFor="eventsStatus" className="form-label">
-            Article Status
+              Article Status
             </label>
             <div className="form-check">
               <input
