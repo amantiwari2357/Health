@@ -1,0 +1,228 @@
+.breadcrumb {
+  /* background: url("../../images/breadcrumb.jpg") center/cover fixed; */
+  background-color: #6E84D0;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.breadcrumb-overlay {
+  width: 100%;
+  padding: 3rem 0rem;
+  background-color: rgba(0, 0, 0, 0.766);
+}
+
+.breadcrumb-nav a {
+  text-decoration: none;
+  color: white;
+}
+
+.breadcrumb-nav a:hover {
+  color: #ddd;
+}
+
+.aboutUs {
+  background-color: var(--whiteBackground);
+  padding: 2rem 2rem;
+}
+
+.heading {
+  border-left: 5px solid var(--themeColor);
+  padding-left: 10px;
+  border-radius: 1rem;
+  color: var(--themeColor);
+  max-width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.aboutUs .about_content .heading {
+  margin-bottom: 1rem;
+}
+
+.about-core-values {
+  background-color: rgba(224, 255, 255, 0.541);
+  padding: 2rem 2rem;
+}
+
+.about-our-work {
+  background-color: #f584340a;
+  padding: 2rem 2rem;
+}
+
+@media only screen and (max-width:768px) {
+
+  .breadcrumb-overlay {
+    padding: 1rem 0rem;
+  }
+
+  .aboutUs,
+  .about-core-values,
+  .about-our-work {
+    padding: 1rem 0rem;
+  }
+
+}
+
+
+
+
+
+
+
+
+/* //////////////// */
+
+
+.aboutImage {
+  width: 100%;
+}
+
+.aboutNumber {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.aboutNuberbox {
+  background-color: #6E84D0;
+  width: 32%;
+  height: 120px;
+  /* Increased height for better spacing */
+  border-radius: 10px;
+
+  /* Flexbox for centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.aboutText {
+  text-align: center;
+  /* Center text alignment */
+}
+
+.aboutcounting {
+  font-size: 35px;
+  font-weight: 600;
+  color: #ddd;
+  margin: 0;
+  /* Remove default margin */
+}
+
+.aboutText p {
+  margin: 1px 0;
+  /* Add some space between the lines */
+  color: #fff;
+  /* Optional: white text for labels */
+  font-size: 23px;
+}
+
+
+
+.our-branches {
+  width: 100%;
+}
+
+.gmapimage{
+  width: 100%;
+  height: 20%;
+}
+@media only screen and (max-width:768px) {
+
+  .aboutNumber {
+    padding: 0px;
+  }
+
+  .aboutText p {
+    margin: 1px 0;
+    /* Add some space between the lines */
+    color: #fff;
+    /* Optional: white text for labels */
+    font-size: 20px;
+  }
+}
+
+
+/* Services Section */
+.services-section {
+  padding: 40px 0;
+  background-color: #f9f9f9;
+}
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.services-header h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.services-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.services-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.services-card {
+  flex: 0 0 22%;
+  max-width: 22%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.services-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.services-icon img {
+  max-width: 60px;
+  margin-bottom: 15px;
+}
+
+.services-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.services-description {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .services-card {
+    flex: 0 0 48%;
+    max-width: 48%;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

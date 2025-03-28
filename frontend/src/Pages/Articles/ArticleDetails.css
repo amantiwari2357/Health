@@ -1,0 +1,102 @@
+/* External CSS for EventDetails */
+.event-details {
+    padding: 5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-details .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Event Header */
+.event-details .event-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.event-details .event-header h2 {
+    text-transform: capitalize;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.event-details .event-header h3 {
+    color: #6c757d;
+    font-size: 1.8rem;
+}
+
+/* Event Image */
+.event-details .event-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.event-details .event-image img {
+    width: 100%;
+    max-width: 600px; /* Ensures it doesn't get too large on big screens */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 10px; /* Adds a modern look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Event Content */
+.event-details .event-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-top: 1.5rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .event-details {
+        padding: 3rem 0;
+    }
+
+    .event-details .event-header h2 {
+        font-size: 2rem;
+    }
+
+    .event-details .event-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .event-details .event-image img {
+        max-width: 90%; /* Makes it more flexible for mobile screens */
+    }
+
+    .event-details .event-content {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .event-details {
+        padding: 2rem 0;
+    }
+
+    .event-details .event-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .event-details .event-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .event-details .event-image img {
+        max-width: 100%;
+    }
+
+    .event-details .event-content {
+        font-size: 0.9rem;
+    }
+}
