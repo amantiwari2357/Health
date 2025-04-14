@@ -28,14 +28,9 @@ const app = express();
 
 // Allowed origins (your frontend domains)
 const allowedOrigins = [
-    'https://panchgavyamrit.com',
-    'https://www.panchgavyamrit.com',
-    'https://admin.panchgavyamrit.com',
     'http://localhost:3000',
     'http://localhost:3001',
     'http://localhost:3002',
-    'https://swadmin.vercel.app',
-    'https://swfrontend.digiindiasolutions.com',
     'https://swhealthcares.com',
     'https://www.swhealthcares.com',
     'https://admin.swhealthcares.com',

@@ -4,11 +4,11 @@ const crypto = require("crypto");
 const axios = require("axios");
 const CouponCode = require("../Models/VocherModel");
 
-// const razorpayInstance = new Razorpay({
-//   key_id: "rzp_live_FjN3xa6p5RsEl6",
-//   rzp_test:"GQ6XaPC6gMPNwH",
-//   key_secret: "CrSeAmgW4PgPIKzsNOaqL7QB",
-// });
+const razorpayInstance = new Razorpay({
+  key_id: " rzp_test_TmsfO3hloFEA31",
+  // rzp_test:"TmsfO3hloFEA31",
+  key_secret: "1xt3UXSTLfyVhQa3G9SSVIKY",
+});
 
 exports.checkout = async (req, res) => {
   console.log(req.body);
