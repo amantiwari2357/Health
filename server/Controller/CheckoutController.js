@@ -5,15 +5,16 @@ const axios = require("axios");
 const CouponCode = require("../Models/VocherModel");
 
 const razorpayInstance = new Razorpay({
-  key_id: " rzp_test_TmsfO3hloFEA31",
-  // rzp_test:"TmsfO3hloFEA31",
-  key_secret: "1xt3UXSTLfyVhQa3G9SSVIKY",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  rzp_test : process.env.RAZORPAY_KEY_TEST,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 exports.checkout = async (req, res) => {
+  console.log("Checkout route hit");
   console.log(req.body);
   const { userId, products, shippingAddress, paymentMethod, voucher } = req.body;
-  console.log("couponDiscountss", products);
+ 
   const pincode = shippingAddress.postalCode;
   const subtotal = products.reduce((total, item) => total + item.price * item.quantity, 0);
   let shippingCost = 0;
@@ -34,7 +35,7 @@ exports.checkout = async (req, res) => {
     }
   }
   if (voucher) {
-    console.log("voucher", voucher);
+  
     try {
       var coupon = await CouponCode.findOne({ code: voucher });
       if (coupon && coupon.vouchersStatus) {
@@ -98,8 +99,8 @@ exports.checkout = async (req, res) => {
     await checkout.save();
     res.status(201).json({ message: "Checkout successful", checkout });
   } catch (error) {
-    console.error("Error processing checkout:", error);
-    res.status(500).json({ error: "Server error during checkout process" });
+    console.log("Error processing checkout:", error);
+    res.status(500).json({ error: "Server error duringfljdfj checkout process" });
   }
 };
 

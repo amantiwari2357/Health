@@ -13,7 +13,7 @@ const Cart = () => {
     window.scrollTo({ top: 0, });
 
     // Retrieve the cart data from sessionStorage
-    const storedCart = JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+    const storedCart = JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
     setCartItems(storedCart); // Set the cart data to the state
   }, []);
 
@@ -26,7 +26,7 @@ const Cart = () => {
       newCartItems[index].quantity -= 1;
     }
     setCartItems(newCartItems);
-    sessionStorage.setItem("VesLakshna", JSON.stringify(newCartItems)); // Update sessionStorage
+    sessionStorage.setItem("Sw Hwalth Cares", JSON.stringify(newCartItems)); // Update sessionStorage
   };
 
   // Function to delete an item from the cart

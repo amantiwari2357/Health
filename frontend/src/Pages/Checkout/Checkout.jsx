@@ -99,7 +99,7 @@ const Checkout = () => {
       behavior: "smooth",
     });
     const savedCartItems =
-      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+      JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
@@ -205,10 +205,10 @@ const Checkout = () => {
             if (paymentMethod === "Online") {
               const { razorpayOrder } = res.data;
               const options = {
-                key: "rzp_live_FjN3xa6p5RsEl6",
+                key: "rzp_test_TmsfO3hloFEA31",
                 amount: razorpayOrder.amount,
                 currency: "INR",
-                name: "VesLakshna Store",
+                name: "Sw Health Cares",
                 description: "Checkout Payment",
                 order_id: razorpayOrder.id,
                 handler: async (response) => {
@@ -223,7 +223,7 @@ const Checkout = () => {
                   );
 
                   if (verifyResponse.status === 200) {
-                    sessionStorage.removeItem("VesLakshna");
+                    sessionStorage.removeItem("Sw Hwalth Cares");
                     setIsPopupVisible(true);
                   } else {
                     alert("Payment verification failed");
@@ -241,7 +241,7 @@ const Checkout = () => {
               const rzp1 = new window.Razorpay(options);
               rzp1.open();
             } else {
-              sessionStorage.removeItem("VesLakshna");
+              sessionStorage.removeItem("Sw Hwalth Cares");
               setIsPopupVisible(true);
             }
           }

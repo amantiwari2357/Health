@@ -57,7 +57,7 @@ const ProductDetails = () => {
       });
       return;
     }
-    const existingCart = JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+    const existingCart = JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
     const isProductInCart = existingCart.some(
       (item) => item.productId === productDetails._id
     );
@@ -77,7 +77,7 @@ const ProductDetails = () => {
         quantity,
       };
       existingCart.push(cartProduct);
-      sessionStorage.setItem("VesLakshna", JSON.stringify(existingCart));
+      sessionStorage.setItem("Sw Hwalth Cares", JSON.stringify(existingCart));
       Swal.fire({
         icon: "success",
         title: "Added to Cart",
