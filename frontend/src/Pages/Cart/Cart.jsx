@@ -33,7 +33,7 @@ const Cart = () => {
   const deleteItem = (productId) => {
     const newCartItems = cartItems.filter(item => item.productId !== productId);
     setCartItems(newCartItems);
-    sessionStorage.setItem("VesLakshna", JSON.stringify(newCartItems)); // Update sessionStorage after deletion
+    sessionStorage.setItem("Sw Hwalth Cares", JSON.stringify(newCartItems)); // Update sessionStorage after deletion
   };
 
   // Calculate total price for each product
