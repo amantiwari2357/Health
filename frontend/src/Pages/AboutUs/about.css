@@ -63,16 +63,6 @@
 
 }
 
-
-
-
-
-
-
-
-/* //////////////// */
-
-
 .aboutImage {
   width: 100%;
 }
@@ -225,4 +215,35 @@
     flex: 0 0 100%;
     max-width: 100%;
   }
+}
+
+
+.certification-section {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  margin-bottom: 30px;
+}
+
+.certification-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.certification-logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.certification-logos img {
+  max-width: 150px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.certification-logos img:hover {
+  transform: scale(1.05);
 }
