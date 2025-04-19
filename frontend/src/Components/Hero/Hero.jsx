@@ -360,13 +360,10 @@ const Hero = () => {
               <div className="fruitvegitabls1">
                 <div className="overlay">
                   <div className="firstCol">
-                    <h6>URO-Flo Urine Bag</h6>
-                    <h4>Reliable and Comfortable Solution</h4>
+                    <h6>TheraTube Air Mattress</h6>
+                    <h4>Effective Bedsore Prevention with Alternating Pressure</h4>
                     <p>
-                      The URO-Flo Urine Bag from SW Healthcare is designed for
-                      comfort and hygienic urine collection. Perfect for
-                      patients with specific medical needs, this product offers
-                      both reliability and convenience for long-term use.
+                    A tubular air mattress is a medical air mattress made up of multiple inflatable tubes or air cells that alternate pressure to prevent and treat bedsores (pressure ulcers). It is commonly used for patients who are bedridden for long periods, helping improve blood circulation and reduce pressure on the skin.
                     </p>
                     {/* <Link className="button_" to="">
                       Show More
@@ -378,13 +375,10 @@ const Hero = () => {
             <div className="col-md-3 mb-2">
               <div className="fruitvegitabls2">
                 <div className="overlay">
-                  <h6>Premium Douche Set</h6>
-                  <h4>Effective Personal Hygiene</h4>
+                  <h6>PulseMate Oximeter</h6>
+                  <h4>Quick and Easy at Your Fingertip</h4>
                   <p>
-                    SW Healthcare's Premium Douche Set is designed to provide
-                    effective personal care and hygiene. It ensures comfort,
-                    cleanliness, and refreshment, making it an essential part of
-                    your daily hygiene routine.
+                  A pulse oximeter is a small, non-invasive device that measures the oxygen saturation (SpO₂) level in your blood and your pulse rate. It clips onto a finger and provides quick, painless readings, making it useful for monitoring respiratory and heart conditions.
                   </p>
                   {/* <Link className="button_" to="">
                     Show More
@@ -395,13 +389,10 @@ const Hero = () => {
             <div className="col-md-3 mb-2">
               <div className="fruitvegitabls3">
                 <div className="overlay">
-                  <h6>Steam Vaporizer</h6>
-                  <h4>Improve Respiratory Health</h4>
+                  <h6>MilkFlow Manual Pump</h6>
+                  <h4>Handheld Comfort for On-the-Go Moms</h4>
                   <p>
-                    SW Healthcare's Steam Vaporizer provides an effective
-                    solution to ease respiratory congestion. Ideal for
-                    individuals suffering from cold or flu, this product helps
-                    to clear nasal passages and promotes healthy breathing.
+                  A manual breast pump is a hand-operated device used to express breast milk. It allows mothers to extract milk by squeezing a handle or lever, creating suction. Manual pumps are portable, quiet, and ideal for occasional use or travel, offering a convenient way to store milk for later feeding
                   </p>
                   {/* <Link className="button_" to="">
                     Show More

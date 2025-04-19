@@ -7,9 +7,11 @@ import image1 from '../../images/download.png'
 import image2 from '../../images/download (1).png'
 import image3 from '../../images/download (2).png'
 import image4 from '../../images/download (3).png'
-import cert1 from '../../images/image1.jpg'
-import cert2 from '../../images/image2.jpg'
-import cert3 from '../../images/image3.jpg'
+import cert1 from '../../images/image1.png'
+import cert2 from '../../images/image2.png'
+import cert3 from '../../images/image3.png'
+import cert4 from '../../images/image4.png'
+import cert5 from '../../images/image5.png'
 
 const About = () => {
   useEffect(() => {
@@ -148,6 +150,8 @@ const About = () => {
     <img src={cert1} alt="Certificate 1" />
     <img src={cert2} alt="Certificate 2" />
     <img src={cert3} alt="Certificate 3" />
+    <img src={cert4} alt="Certificate 4" />
+    <img src={cert5} alt="Certificate 5" />
   
   </div>
 </div>

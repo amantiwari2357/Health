@@ -192,6 +192,27 @@ const ProductDetails = () => {
                     <span className="fs-2">₹{price}</span>
                     &nbsp;
                   </li>
+                  <div>
+                  <li>
+                  <a
+      href={productDetails?.productPdf || "https://example.com/pdf"}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: "inline-block",
+        backgroundColor: "#16a34a", // green-600
+        color: "#ffffff",
+        padding: "10px 16px",
+        borderRadius: "6px",
+        textDecoration: "none",
+        transition: "background-color 0.3s ease",
+      }}
+      onMouseOver={(e) => (e.target.style.backgroundColor = "#15803d")} // green-700
+      onMouseOut={(e) => (e.target.style.backgroundColor = "#16a34a")} // green-600
+    >
+      View Product PDF
+    </a>
+                  </li>
                   <li>
                     {stock === "Available" ? (
                       <button className="add-to-cart" onClick={addToCart}>
@@ -203,6 +224,9 @@ const ProductDetails = () => {
                       </p>
                     )}
                   </li>
+                 
+                  </div>
+                 
                 </ul>
               </div>
             </div>

@@ -15,7 +15,7 @@ const AllBanner = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-banner"
+          "http://localhost:8000/api/all-banner"
         );
         setBanners(response.data.banners); // Assuming the API returns an array of banners
       } catch (error) {
@@ -42,7 +42,7 @@ const AllBanner = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `https://api.swhealthcares.com/api/delete-banner/${bannerId}`
+          `http://localhost:8000/api/delete-banner/${bannerId}`
         );
         setBanners(banners.filter((banner) => banner._id !== bannerId)); // Remove the deleted banner from the state
         Swal.fire("Deleted!", "Your banner has been deleted.", "success");

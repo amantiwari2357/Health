@@ -21,7 +21,7 @@ const AddSubCategory = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "http://localhost:8000/api/all-category"
         );
         setCategories(response.data); // Assuming response.data is an array of categories
       } catch (error) {
@@ -54,7 +54,7 @@ const AddSubCategory = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/add-subcategory",
+        "http://localhost:8000/api/add-subcategory",
         apiFormData,
         {
           headers: {

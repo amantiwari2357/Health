@@ -15,7 +15,7 @@ const AllPincode = () => {
     const fetchPincodes = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-pincode"
+          "http://localhost:8000/api/all-pincode"
         );
         console.log(response);
         setPincodes(response.data);
@@ -42,7 +42,7 @@ const AllPincode = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `https://api.swhealthcares.com/api/delete-pincode/${id}`
+          `http://localhost:8000/api/delete-pincode/${id}`
         );
         setPincodes(pincodes.filter((pincode) => pincode._id !== id));
         toast.success("Pincode deleted successfully!");

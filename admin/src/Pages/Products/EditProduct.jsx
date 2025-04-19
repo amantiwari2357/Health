@@ -24,12 +24,15 @@ const EditProduct = () => {
     productStatus: false,
     bestseller: false,
   });
+
+    const [pdfFile, setPdfFile] = useState(null);
+  
   // Fetch categories from API when the component mounts
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "http://localhost:8000/api/all-category"
         );
         setCategories(response.data); // Set categories to state
       } catch (error) {
@@ -38,12 +41,12 @@ const EditProduct = () => {
     };
 
     fetchCategories();
-
+   
     // Fetch the product details when the component mounts
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-product/${id}`
+          `http://localhost:8000/api/single-product/${id}`
         );
         const product = response.data.product;
 
@@ -84,6 +87,10 @@ const EditProduct = () => {
     }));
   };
 
+  const handlePdfChange = (e) => {
+    setPdfFile(e.target.files[0]);
+  };
+
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData((prevState) => ({
@@ -118,10 +125,12 @@ const EditProduct = () => {
       formData.productImage.forEach((image) => {
         formDataToSubmit.append("productImage", image);
       });
+      if (pdfFile) formDataToSubmit.append("productPdf", pdfFile);
+
 
       // Send the data to backend API for updating the product
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/update-product/${id}`,
+        `http://localhost:8000/api/update-product/${id}`,
         formDataToSubmit,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -173,7 +182,7 @@ const EditProduct = () => {
             </select>
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-4">
             <label htmlFor="productName" className="form-label">
               Product Name<sup className="text-danger">*</sup>
             </label>
@@ -188,7 +197,18 @@ const EditProduct = () => {
               placeholder="Product Name"
             />
           </div>
-
+          <div className="col-md-4">
+            <label htmlFor="productPdf" className="form-label">
+              Product Pdf
+            </label>
+            <input
+              type="file" accept="application/pdf"
+              name="productPdf"
+              className="form-control"
+              id="productPdf"
+              onChange={handlePdfChange}
+            />
+          </div>
           <div className="col-12">
             <label htmlFor="productDetails" className="form-label">
               Product Details<sup className="text-danger">*</sup>
