@@ -50,7 +50,12 @@ const ProductSchema = new mongoose.Schema({
     bestseller: {
         type: Boolean,
         default: false
-    }
+    },
+    productPdf: {
+        type: String,
+        required: true,
+        default: ""
+    },
 });
 
 const Product = mongoose.model("Product", ProductSchema);

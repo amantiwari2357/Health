@@ -1,5 +1,5 @@
 const Product = require("../Models/ProductModel");
-const { uploadImage, deleteImage } = require("../utils/Cloudnary");
+const { uploadImage, deleteImage, uploadPdfToCloudinary } = require("../utils/Cloudnary");
 const { deleteLocalFile } = require("../utils/DeleteImageFromLoaclFolder");
 
 // Create a new product
@@ -10,15 +10,19 @@ const createProduct = async (req, res) => {
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ message: "At least one product image is required" });
         }
-
+        const pdfFile = req.files["productPdf"]?.[0];
         // Upload images and get the URLs
         const imageUrls = [];
-        for (let file of req.files) {
+        for (let file of req.files["productImage"]) {
             const imageUrl = await uploadImage(file.path);
             imageUrls.push(imageUrl);
             deleteLocalFile(file.path); // Clean up local file
         }
 
+        let pdfUrl;
+        if (pdfFile) {
+          pdfUrl = await uploadPdfToCloudinary(pdfFile?.path);
+        }
         const newProduct = new Product({
             categoryName,
             productName,
@@ -27,7 +31,8 @@ const createProduct = async (req, res) => {
             productPrice, productDiscountPercentage, productFinalPrice, stock, tax,
             productImage: imageUrls,// Store all image URLs in an array
             productStatus: productStatus || false,
-            bestseller: bestseller || false
+            bestseller: bestseller || false,
+            productPdf: pdfUrl || null,
         });
 
         const savedProduct = await newProduct.save();
@@ -49,7 +54,7 @@ const createProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1; // default to page 1
-      const limit = parseInt(req.query.limit) || 10; // default limit
+      const limit = parseInt(req.query.limit) 
       const skip = (page - 1) * limit;
   
       const products = await Product.find()
@@ -97,6 +102,7 @@ const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const { categoryName, productName, productDetails, productDescription, productPrice, productDiscountPercentage, productFinalPrice, stock, tax, productStatus, bestseller } = req.body;
+        const pdfFile = req.files["productPdf"]?.[0];
 
         const product = await Product.findById(id);
         if (!product) {
@@ -122,7 +128,7 @@ const updateProduct = async (req, res) => {
             }
 
             const imageUrls = [];
-            for (let file of req.files) {
+            for (let file of req.files["productImage"]) {
                 const imageUrl = await uploadImage(file.path);
                 imageUrls.push(imageUrl);
                 deleteLocalFile(file.path); // Clean up local file
@@ -131,6 +137,12 @@ const updateProduct = async (req, res) => {
             product.productImage = imageUrls; // Update product images
         }
 
+        if(pdfFile) {
+            const pdfUrl = await uploadPdfToCloudinary(pdfFile?.path);
+            product.productPdf = pdfUrl
+        }else {
+            product.productPdf = product.productPdf
+        }
         const updatedProduct = await product.save();
         res.status(200).json({
             message: "Product updated successfully",

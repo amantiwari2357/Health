@@ -23,7 +23,7 @@ const EditVouchers = () => {
 
     try {
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/coupon/update-vouchers/${id}`,
+        `http://localhost:8000/api/coupon/update-vouchers/${id}`,
         formData
       );
       setIsLoading(false);
@@ -43,7 +43,7 @@ const EditVouchers = () => {
   const fetchVoucherDetails = async () => {
     try {
       const response = await axios.get(
-        `https://api.swhealthcares.com/api/coupon/single-vouchers/${id}`
+        `http://localhost:8000/api/coupon/single-vouchers/${id}`
       );
       setVouchersName(response.data.data.code);
       setDiscount(response.data.data.discount);

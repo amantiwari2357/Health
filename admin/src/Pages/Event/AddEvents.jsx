@@ -45,7 +45,7 @@ const AddEvents = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/events/create-event",
+        "http://localhost:8000/api/events/create-event",
         formData,
         {
           headers: {

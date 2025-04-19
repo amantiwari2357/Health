@@ -1,4 +1,5 @@
 const cloudnary = require("cloudinary").v2
+const fs = require("fs");
 
 cloudnary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -17,6 +18,27 @@ const uploadImage = async (file) => {
     }
 }
 
+const uploadPdfToCloudinary = async (filePath) => {
+    return new Promise((resolve, reject) => {
+      cloudnary.uploader.upload(
+        filePath,
+        { folder:"product_pdfs", resource_type: "raw",type: "upload" },
+        (error, result) => {
+          if (error) reject(error);
+          else {
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                  console.error("Failed to delete local PDF:", err);
+                } else {
+                  console.log("Local PDF deleted:", filePath);
+                }
+              });
+            resolve(result.secure_url);}
+        }
+      );
+    });
+  };
+
 
 const deleteImage = async (imageUrl) => {
     try {
@@ -30,5 +52,5 @@ const deleteImage = async (imageUrl) => {
 
 
 module.exports = {
-    uploadImage, deleteImage
+    uploadImage, deleteImage, uploadPdfToCloudinary
 }

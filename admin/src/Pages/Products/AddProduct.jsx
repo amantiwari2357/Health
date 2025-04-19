@@ -23,13 +23,13 @@ const AddProduct = () => {
     productStatus: false,
     bestseller: false,
   });
-
+  const [pdfFile, setPdfFile] = useState(null);
   // Fetch categories from API when the component mounts
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "http://localhost:8000/api/all-category"
         );
         setCategories(response.data); // Set categories to state
       } catch (error) {
@@ -71,6 +71,10 @@ const AddProduct = () => {
     }));
   };
 
+  const handlePdfChange = (e) => {
+    setPdfFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -99,10 +103,14 @@ const AddProduct = () => {
       formData.productImage.forEach((image) => {
         formDataToSubmit.append("productImage", image);
       });
+      if (pdfFile) formDataToSubmit.append("productPdf", pdfFile);
 
+      for (let pair of formDataToSubmit.entries()) {
+        console.log(pair[0], pair[1]);
+      }
       // Send the data to backend API
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/add-product",
+        "http://localhost:8000/api/add-product",
         formDataToSubmit,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -155,7 +163,7 @@ const AddProduct = () => {
             </select>
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-4">
             <label htmlFor="productName" className="form-label">
               Product Name<sup className="text-danger">*</sup>
             </label>
@@ -168,6 +176,18 @@ const AddProduct = () => {
               onChange={handleInputChange}
               required
               placeholder="Product Name"
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="productPdf" className="form-label">
+              Product Pdf
+            </label>
+            <input
+              type="file" accept="application/pdf"
+              name="productPdf"
+              className="form-control"
+              id="productPdf"
+              onChange={handlePdfChange}
             />
           </div>
 

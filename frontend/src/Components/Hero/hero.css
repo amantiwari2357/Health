@@ -344,7 +344,7 @@ select:focus-visible {
 /* product details section  */
 
 .productDetailsCols .fruitvegitabls1 {
-  background-image: url(../../images/fruitbg1.png);
+  background-image: url(../../images/sw-img-2.jpg);
   background-size: cover;
   background-position: center;
   object-fit: cover;
@@ -353,7 +353,7 @@ select:focus-visible {
 }
 
 .productDetailsCols .fruitvegitabls2 {
-  background-image: url(../../images/fruitbg2.png);
+  background-image: url(../../images/sw-img-1.jpg);
   background-size: cover;
   background-position: center;
   object-fit: cover;
@@ -362,7 +362,7 @@ select:focus-visible {
 }
 
 .productDetailsCols .fruitvegitabls3 {
-  background-image: url(../../images/fruitbg3.png);
+  background-image: url(../../images/sw-img-3.png);
   background-size: cover;
   background-position: center;
   object-fit: cover;

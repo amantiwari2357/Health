@@ -3,10 +3,16 @@ const upload = require("../Middlewares/Multer")
 
 const ProductRouter = require("express").Router()
 
-ProductRouter.post("/add-product", upload.array("productImage"), createProduct)
+ProductRouter.post("/add-product",   upload.fields([
+    { name: "productImage", maxCount: 5 },
+    { name: "productPdf", maxCount: 1 },
+  ]), createProduct)
 ProductRouter.get("/get-product", getAllProducts)
 ProductRouter.get("/single-product/:id", getProductById)
-ProductRouter.put("/update-product/:id", upload.array("productImage"), updateProduct)
+ProductRouter.put("/update-product/:id",  upload.fields([
+    { name: "productImage", maxCount: 5 },
+    { name: "productPdf", maxCount: 1 },
+  ]), updateProduct)
 ProductRouter.delete("/delete-product/:id", deleteProduct)
 
 ProductRouter.get("/search", searchProducts);
