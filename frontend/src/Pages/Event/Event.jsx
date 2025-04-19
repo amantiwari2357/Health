@@ -58,21 +58,29 @@ const Events = () => {
         <div className="container">
           <div className="row g-4">
             <div className="event-container">
-              {data &&
-                data.map((event, eventIndex) =>
-                  event.eventImages.map((image, imgIndex) => (
-                    <div
-                      className="col-md-3 col-sm-6 col-12 event-card"
-                      key={`${eventIndex}-${imgIndex}`}
-                    >
-                      <img
-                        src={image}
-                        alt={`Event ${imgIndex + 1}`}
-                        className="event-card-img"
-                      />
-                    </div>
-                  ))
-                )}
+            {data &&
+  data.map((event, eventIndex) => {
+    return (
+      <div key={eventIndex} style={eventIndex > 0 ? { marginTop: "20px" } : {}}>
+        <h1>{event.eventName}</h1>
+        <div className="row">
+          {event.eventImages.map((image, imgIndex) => (
+            <div
+              className="col-md-3 col-sm-6 col-12 event-card"
+              key={`${eventIndex}-${imgIndex}`}
+            >
+              <img
+                src={image}
+                alt={`Event ${imgIndex + 1}`}
+                className="event-card-img"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+
             </div>
           </div>
         </div>

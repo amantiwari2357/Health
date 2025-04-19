@@ -10,6 +10,7 @@ const AddEvents = () => {
     eventsImage: "",
     eventsStatus: false,
   });
+  const [eventName, setEventName] = useState("");
 
   const navigate = useNavigate();
   // Handle file input change
@@ -40,6 +41,7 @@ const AddEvents = () => {
     }
 
     formData.append("eventsStatus", data.eventsStatus);
+    formData.append("eventName", eventName);
 
     try {
       const response = await axios.post(
@@ -81,6 +83,22 @@ const AddEvents = () => {
 
       <div className="d-form">
         <form className="row g-3" onSubmit={handleSubmit}>
+        <div className="col-md-6">
+            <label htmlFor="eventsImage" className="form-label">
+              Events Name<sup className="text-danger">*</sup>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="eventName"
+              name="eventName"
+              multiple
+              onChange={(e) => setEventName(e.target.value)}
+              value={eventName}
+              placeholder="Enter Events Name"
+              required
+            />
+          </div>
           <div className="col-md-6">
             <label htmlFor="eventsImage" className="form-label">
               Events Image<sup className="text-danger">*</sup>

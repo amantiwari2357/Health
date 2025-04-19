@@ -22,6 +22,10 @@ const ProductDetails = () => {
   const [currentImage, setCurrentImage] = useState(""); // For tracking the selected image
   const [productDetails, setProductDetails] = useState(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () =>
     setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
@@ -116,7 +120,7 @@ const ProductDetails = () => {
           <div className="row align-items-center">
             <div className="col-md-6 col-6">
               <Link
-                to="/"
+                to="/all-products"
                 className="back-icon text-decoration-none text-black d-flex align-items-center gap-2"
               >
                 <i className="bi bi-arrow-left text-black"></i> Back to category
@@ -204,7 +208,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="col-md-6 order-1 order-md-2">
-              <div className="slider-container">
+              {/* <div className="slider-container">
                 <ReactImageMagnify
                   {...{
                     smallImage: {
@@ -231,7 +235,50 @@ const ProductDetails = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
+
+<div className="slider-container">
+        <img
+          src={currentImage}
+          alt="Main Product"
+          className="main-image"
+          onClick={handleOpenModal}
+          style={{ cursor: "pointer", width: "100%" }}
+        />
+
+        <div className="thumbnail-container">
+          {productDetails?.productImage?.map((img, index) => (
+            <div
+              key={index}
+              className={`thumbnail-wrapper ${
+                currentImage === img ? "active-thumb" : ""
+              }`}
+              onClick={() => setCurrentImage(img)}
+            >
+              <img src={img} alt={`Thumbnail ${index + 1}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="close-btn" onClick={handleCloseModal}>
+              ✕
+            </button>
+            <img
+              src={currentImage}
+              alt="Zoomed Product"
+              className="modal-img"
+            />
+          </div>
+        </div>
+      )}
             </div>
           </div>
 
