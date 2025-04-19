@@ -69,11 +69,16 @@ const Header = () => {
                       About Us
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link to="/contact-us" aria-label="Contact">
-                      Contact
-                    </Link>
-                  </li> */}
+                  <li>
+                  <a
+  href="https://forms.gle/Yot8FHmFj4fvpXh67"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contact"
+>
+  Warranty Registration
+</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -256,6 +261,19 @@ const Header = () => {
           <li onClick={toggleSidebar}>
             <Link to="/all-products">Products</Link>
           </li>
+          <li>
+          <a
+         
+  href="https://forms.gle/Yot8FHmFj4fvpXh67"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contact"
+  onClick={toggleSidebar}
+>
+  Warranty Registration
+</a>
+          </li>
+        
         </ul>
       </aside>
     </>

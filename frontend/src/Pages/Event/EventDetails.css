@@ -64,6 +64,7 @@
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
     width: calc(25% - 16px); /* 4 cards per row with spacing */
+    padding: 12px 12px;
   }
   
   .event-card:hover {

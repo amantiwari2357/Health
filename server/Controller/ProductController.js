@@ -48,20 +48,39 @@ const createProduct = async (req, res) => {
 // Get all products
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find().populate("categoryName", "categoryName categoryStatus");
-        res.status(200).json({ products });
+      const page = parseInt(req.query.page) || 1; // default to page 1
+      const limit = parseInt(req.query.limit) || 10; // default limit
+      const skip = (page - 1) * limit;
+  
+      const products = await Product.find()
+        .skip(skip)
+        .limit(limit)
+        .populate("categoryName", "categoryName categoryStatus");
+  
+      const totalCount = await Product.countDocuments();
+  
+      res.status(200).json({
+        products,
+        total: totalCount,
+        page,
+        totalPages: Math.ceil(totalCount / limit),
+      });
     } catch (error) {
-        res.status(500).json({ message: "Failed to fetch products", error: error.message });
+      res.status(500).json({
+        message: "Failed to fetch products",
+        error: error.message,
+      });
     }
-};
+  };
+  
 
 // Get a single product by ID
 const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id)
+ 
         const product = await Product.findById(id).populate("categoryName", "categoryName categoryStatus");
-console.log("productproductproduct",product)
+
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
@@ -153,7 +172,7 @@ const deleteProduct = async (req, res) => {
 const searchProducts = async (req, res) => {
     try {
         const { categoryName, productName } = req.query;
-        console.log(req.query)
+     
         const query = {};
         if (categoryName) {
             query.categoryName = { $regex: new RegExp(categoryName, "i") }; // Case-insensitive search

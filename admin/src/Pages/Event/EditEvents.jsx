@@ -13,6 +13,7 @@ const EditEvents = () => {
     eventsStatus: false,
   });
   const [imagePreview, setImagePreview] = useState("");
+  const [eventName, setEventName] = useState("");
 
   // Fetch the events data on component mount
   useEffect(() => {
@@ -23,9 +24,9 @@ const EditEvents = () => {
         );
 
         setEventsData({
-          eventsImage: response.data.event.eventImages[0],
           eventsStatus: response.data.event.eventStatus,
         });
+        setEventName(response.data.event.eventName);
         setImagePreview(response.data.event.eventImages); // Show the existing image in the preview
       } catch (error) {
         console.error("Error fetching events data:", error);
@@ -68,12 +69,14 @@ const EditEvents = () => {
     const formData = new FormData();
 
     formData.append("eventStatus", eventsData.eventsStatus);
-    if (eventsData.eventsImage) {
-      eventsData.eventsImage.forEach((image) => {
+    if (eventsData.eventsImage && eventsData?.eventsImage) {
+      eventsData.eventsImage?.forEach((image) => {
         formData.append("eventImages", image);
       });
     }
-
+    if (eventName) {
+      formData.append("eventName", eventName);
+    }
     try {
       const response = await axios.put(
         `https://api.swhealthcares.com/api/events/update-event/${id}`,
@@ -114,6 +117,22 @@ const EditEvents = () => {
 
       <div className="d-form">
         <form className="row g-3" onSubmit={handleSubmit}>
+          <div className="col-md-6">
+            <label htmlFor="eventsImage" className="form-label">
+              Events Name<sup className="text-danger">*</sup>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="eventName"
+              name="eventName"
+              multiple
+              onChange={(e) => setEventName(e.target.value)}
+              value={eventName}
+              placeholder="Enter Events Name"
+              required
+            />
+          </div>
           <div className="col-md-6">
             <label htmlFor="eventsImage" className="form-label">
               events Image

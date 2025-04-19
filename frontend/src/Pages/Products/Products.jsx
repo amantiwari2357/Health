@@ -3,15 +3,17 @@ import "./product.css";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedWeights, setSelectedWeights] = useState({});
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Fetch categories on load
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -21,11 +23,10 @@ const Products = () => {
         const fetchedCategories = response.data;
         setCategories(fetchedCategories);
 
-        // Automatically select the first category
         if (fetchedCategories.length > 0) {
           const firstCategory = fetchedCategories[0];
           setSelectedCategory(firstCategory._id);
-          fetchProducts(firstCategory._id);
+          fetchProducts(firstCategory._id, 1, false);
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -34,24 +35,63 @@ const Products = () => {
     fetchCategories();
   }, []);
 
-  const fetchProducts = async (categoryId) => {
+  // Fetch products
+  const fetchProducts = async (categoryId, currentPage = 1, append = false) => {
     try {
+      setLoading(true);
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/get-product"
+        `https://api.swhealthcares.com/api/get-product?page=${currentPage}&limit=10`
       );
-      const filteredProducts = response.data.products.filter(
+
+      const filtered = response.data.products.filter(
         (product) => product.categoryName._id === categoryId
       );
-      setProducts(filteredProducts);
+
+      if (filtered.length === 0) {
+        setHasMore(false);
+      }
+
+      setProducts((prev) => (append ? [...prev, ...filtered] : filtered));
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching products:", error);
+      setLoading(false);
     }
   };
 
+  // On scroll, load more
+  useEffect(() => {const handleScroll = () => {
+    const buffer = 200; 
+  
+    if (
+      window.innerHeight + document.documentElement.scrollTop + buffer >=
+        document.documentElement.scrollHeight &&
+      hasMore &&
+      !loading
+    ) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasMore, loading]);
+
+  // Watch for page change
+  useEffect(() => {
+    if (selectedCategory && page > 1) {
+      fetchProducts(selectedCategory, page, true);
+    }
+  }, [page]);
+
+  // Handle category click
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
-    fetchProducts(categoryId);
+    setPage(1);
+    setHasMore(true);
+    fetchProducts(categoryId, 1, false);
   };
+
   const handleViewDetails = (product) => {
     navigate(
       `/product/product-details/${product._id}?&price=${product.productFinalPrice}&stock=${product.stock}`
@@ -112,7 +152,6 @@ const Products = () => {
                       <div className="productName">
                         <h3 className="product-title">
                           {truncateText(product.productName, 100)}
-                          {/* {product.productName} */}
                         </h3>
                         <div className="price">
                           <span className="current-price">
@@ -139,6 +178,16 @@ const Products = () => {
                   </div>
                 ))}
               </div>
+              {loading && (
+                <div className="text-center mt-4">
+                  <p>Loading more products...</p>
+                </div>
+              )}
+              {/* {!hasMore && (
+                <div className="text-center mt-4 text-muted">
+                  <p>No more products to show</p>
+                </div>
+              )} */}
             </div>
           </div>
         </div>

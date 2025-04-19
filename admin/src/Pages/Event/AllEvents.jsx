@@ -84,6 +84,7 @@ const AllEvents = () => {
           <thead>
             <tr>
               <th scope="col">Sr.No.</th>
+              <th scope="col">Name</th>
               <th scope="col">Image</th>
               <th scope="col">Show on Event Page</th>
               <th scope="col">Edit</th>
@@ -101,6 +102,7 @@ const AllEvents = () => {
               events?.map((event, index) => (
                 <tr key={event._id}>
                   <th scope="row">{index + 1}</th>
+                  <td>{event.eventName}</td>
                   <td>
                     <img
                       src={event.eventImages[0]}

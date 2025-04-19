@@ -48,7 +48,7 @@ const createEvent = async (req, res) => {
 // Get All Events
 const getAllEvents = async (req, res) => {
   try {
-    const events = await EventModel.find();
+    const events = await EventModel.find({"eventStatus": true}).sort({ createdAt: -1 });
     res.status(200).json({ events });
   } catch (error) {
     console.error(error);
@@ -107,6 +107,8 @@ if(req.files && req.files.length >10){
           event.eventImages.push(imageUrl);
         }
       }
+    }else{
+      event.eventImages = event.eventImages;
     }
 
     if (eventStatus) {

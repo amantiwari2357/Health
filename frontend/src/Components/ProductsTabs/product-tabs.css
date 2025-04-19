@@ -56,6 +56,12 @@
   .pruduct-spacing {
     margin-bottom: 2rem;
   }
+  .productName{
+    align-items: center;
+  }
+  .product-title{
+    text-align: center;
+  }
   .product_heading_tab {
     display: grid;
     text-align: center;
