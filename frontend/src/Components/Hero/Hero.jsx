@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import bannerImage1 from "../../images/banner1.jpg";
 import "./hero.css";
 import Slider from "react-slick";
@@ -6,10 +6,8 @@ import grocery from "../../images/grocery.png";
 import CountUp from "react-countup";
 
 import ProductsTabs from "../ProductsTabs/ProductsTabs";
-import SubscribeForm from "../SubscribeForm/SubscribeForm";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -73,12 +71,40 @@ const Hero = () => {
     };
   }, []);
 
-  var settings = {
+  const sliderRef = useRef(null);
+  const [readyToRender, setReadyToRender] = useState(false);
+
+  // Check when all product images are loaded
+  useEffect(() => {
+    if (!products || products.length === 0) return;
+
+    let loadedCount = 0;
+
+    products.forEach((product) => {
+      const img = new Image();
+      img.src = product.productImage[0];
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === products.length) {
+          setReadyToRender(true);
+          setTimeout(() => {
+            window.dispatchEvent(new Event("resize"));
+            if (sliderRef.current) {
+              sliderRef.current.slickGoTo(0);
+            }
+          }, 100);
+        }
+      };
+    });
+  }, [products]);
+
+  const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
+    arrow:true,
     initialSlide: 0,
     responsive: [
       {
@@ -197,31 +223,32 @@ const Hero = () => {
             <div className="carousel-inner">
               {banner.length > 0
                 ? banner.map((bannerItem, index) => (
-                    <div
-                      className={`carousel-item ${index === 0 ? "active" : ""}`}
-                      key={bannerItem.id || index} // Assuming each banner has a unique `id`
-                    >
-                      <img
-                        src={bannerItem.bannerImage} // Assuming the banner has an 'image' property
-                        className="d-block"
-                        alt={`Banner ${index + 1}`}
-                      />
-                    </div>
-                  ))
+                  <div
+                    className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    key={bannerItem.id || index} // Assuming each banner has a unique `id`
+                  >
+                    <img
+                      src={bannerItem.bannerImage} // Assuming the banner has an 'image' property
+                      className="d-block"
+                      alt={`Banner ${index + 1}`}
+                    />
+                  </div>
+                ))
                 : // <div className="carousel-item active">
-                  //   <img
-                  //     src={bannerImage1} // Fallback to a default image
-                  //     className="d-block w-100"
-                  //     alt="Default Banner"
-                  //   />
-                  // </div>
-                  null}
+                //   <img
+                //     src={bannerImage1} // Fallback to a default image
+                //     className="d-block w-100"
+                //     alt="Default Banner"
+                //   />
+                // </div>
+                null}
             </div>
             <button
               className="carousel-control-prev"
               type="button"
               data-bs-target="#carouselExampleControls"
               data-bs-slide="prev"
+              style={{ zIndex: "99" }}
             >
               <span
                 className="carousel-control-prev-icon"
@@ -234,6 +261,7 @@ const Hero = () => {
               type="button"
               data-bs-target="#carouselExampleControls"
               data-bs-slide="next"
+              style={{ zIndex: "99" }}
             >
               <span
                 className="carousel-control-next-icon"
@@ -251,7 +279,7 @@ const Hero = () => {
             <h2>Bestsellers</h2>
           </div>
           <div className="slider-container">
-            <Slider {...settings}>
+            <Slider  ref={sliderRef} {...settings}>
               {products &&
                 products.map((product, index) => (
                   <div key={index}>
@@ -266,26 +294,19 @@ const Hero = () => {
                       <div className="productName">
                         <h3 className="product-title">
                           {truncateText(product.productName, 100)}
-                          {/* {product.productName} */}
                         </h3>
-                        <div className="price text-end">
-                          <>
-                            <span className="current-price">
-                              <del>&#8377; {product.productPrice}</del>
-                            </span>{" "}
-                            <br />
-                            <span className="original-price">
-                              Off {product.productDiscountPercentage}%
-                            </span>{" "}
-                            <br />
-                            <span className="current-price">
-                              &#8377; {product.productFinalPrice}
-                            </span>
-                          </>
+                        <div className="price">
+                          <p className="cut-price">
+                            <del>&#8377; {product.productPrice}</del>
+                          </p>
+                          <p className="original-price">
+                            Off {product.productDiscountPercentage}%
+                          </p>
+                          <p className="current-price">
+                                ₹ {Math.floor(product.productFinalPrice)}
+                              </p>
                         </div>
                       </div>
-                      {/* </Link> */}
-
                       <button
                         onClick={() => handleViewDetails(product)}
                         className="add-to-cart"
@@ -321,7 +342,7 @@ const Hero = () => {
               </Link>
             </div>
             <div className="col-md-5">
-              <img className="w-100" src={grocery} alt="" />
+              <img className="w-100 mt-3" src={grocery} alt="" />
             </div>
           </div>
         </div>
@@ -363,7 +384,7 @@ const Hero = () => {
                     <h6>TheraTube Air Mattress</h6>
                     <h4>Effective Bedsore Prevention with Alternating Pressure</h4>
                     <p>
-                    A tubular air mattress is a medical air mattress made up of multiple inflatable tubes or air cells that alternate pressure to prevent and treat bedsores (pressure ulcers). It is commonly used for patients who are bedridden for long periods, helping improve blood circulation and reduce pressure on the skin.
+                      A tubular air mattress is a medical air mattress made up of multiple inflatable tubes or air cells that alternate pressure to prevent and treat bedsores (pressure ulcers). It is commonly used for patients who are bedridden for long periods, helping improve blood circulation and reduce pressure on the skin.
                     </p>
                     {/* <Link className="button_" to="">
                       Show More
@@ -378,7 +399,7 @@ const Hero = () => {
                   <h6>PulseMate Oximeter</h6>
                   <h4>Quick and Easy at Your Fingertip</h4>
                   <p>
-                  A pulse oximeter is a small, non-invasive device that measures the oxygen saturation (SpO₂) level in your blood and your pulse rate. It clips onto a finger and provides quick, painless readings, making it useful for monitoring respiratory and heart conditions.
+                    A pulse oximeter is a small, non-invasive device that measures the oxygen saturation (SpO₂) level in your blood and your pulse rate. It clips onto a finger and provides quick, painless readings, making it useful for monitoring respiratory and heart conditions.
                   </p>
                   {/* <Link className="button_" to="">
                     Show More
@@ -392,7 +413,7 @@ const Hero = () => {
                   <h6>MilkFlow Manual Pump</h6>
                   <h4>Handheld Comfort for On-the-Go Moms</h4>
                   <p>
-                  A manual breast pump is a hand-operated device used to express breast milk. It allows mothers to extract milk by squeezing a handle or lever, creating suction. Manual pumps are portable, quiet, and ideal for occasional use or travel, offering a convenient way to store milk for later feeding
+                    A manual breast pump is a hand-operated device used to express breast milk. It allows mothers to extract milk by squeezing a handle or lever, creating suction. Manual pumps are portable, quiet, and ideal for occasional use or travel, offering a convenient way to store milk for later feeding
                   </p>
                   {/* <Link className="button_" to="">
                     Show More
@@ -422,14 +443,12 @@ const Hero = () => {
                             __html: truncateText(item.eventName, 20),
                           }}
                         ></h5>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: truncateText(item.eventDetails, 50),
-                          }}
-                        ></p>
-
-                        <p className="date">{item.date}</p>
-                        <div className="d-flex justify-start">
+                        <p>
+                          {item.eventHeading.length > 30
+                            ? `${item.eventHeading.slice(0, 30)}...`
+                            : item.eventHeading}
+                        </p>
+                        <div className="d-flex justify-content-center mt-3">
                           <Link className="button_" to={`/article/${item._id}`}>
                             Read More
                           </Link>
@@ -444,7 +463,6 @@ const Hero = () => {
         </div>
       </section>
 
-      <SubscribeForm />
     </>
   );
 };

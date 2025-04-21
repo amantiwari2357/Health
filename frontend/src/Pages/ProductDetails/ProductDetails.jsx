@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./productdetails.css";
-import ReactImageMagnify from "react-image-magnify";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
@@ -193,40 +192,40 @@ const ProductDetails = () => {
                     &nbsp;
                   </li>
                   <div>
-                  <li>
-                  <a
-      href={productDetails?.productPdf || "https://example.com/pdf"}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: "inline-block",
-        backgroundColor: "#16a34a", // green-600
-        color: "#ffffff",
-        padding: "10px 16px",
-        borderRadius: "6px",
-        textDecoration: "none",
-        transition: "background-color 0.3s ease",
-      }}
-      onMouseOver={(e) => (e.target.style.backgroundColor = "#15803d")} // green-700
-      onMouseOut={(e) => (e.target.style.backgroundColor = "#16a34a")} // green-600
-    >
-      View Product PDF
-    </a>
-                  </li>
-                  <li>
-                    {stock === "Available" ? (
-                      <button className="add-to-cart" onClick={addToCart}>
-                        Add To Cart <i className="bi bi-cart"></i>
-                      </button>
-                    ) : (
-                      <p className="out-of-stock-message">
-                        This product is currently out of stock.
-                      </p>
-                    )}
-                  </li>
-                 
+                    <li>
+                      <a
+                        href={productDetails?.productPdf || "https://example.com/pdf"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-block",
+                          backgroundColor: "#16a34a", // green-600
+                          color: "#ffffff",
+                          padding: "10px 16px",
+                          borderRadius: "6px",
+                          textDecoration: "none",
+                          transition: "background-color 0.3s ease",
+                        }}
+                        onMouseOver={(e) => (e.target.style.backgroundColor = "#15803d")} // green-700
+                        onMouseOut={(e) => (e.target.style.backgroundColor = "#16a34a")} // green-600
+                      >
+                        View Product PDF
+                      </a>
+                    </li>
+                    <li>
+                      {stock === "Available" ? (
+                        <button className="add-to-cart" onClick={addToCart}>
+                          Add To Cart <i className="bi bi-cart"></i>
+                        </button>
+                      ) : (
+                        <p className="out-of-stock-message">
+                          This product is currently out of stock.
+                        </p>
+                      )}
+                    </li>
+
                   </div>
-                 
+
                 </ul>
               </div>
             </div>
@@ -261,48 +260,47 @@ const ProductDetails = () => {
                 </div>
               </div> */}
 
-<div className="slider-container">
-        <img
-          src={currentImage}
-          alt="Main Product"
-          className="main-image"
-          onClick={handleOpenModal}
-          style={{ cursor: "pointer", width: "100%" }}
-        />
+              <div className="slider-container">
+                <img
+                  src={currentImage}
+                  alt="Main Product"
+                  className="main-image"
+                  onClick={handleOpenModal}
+                  style={{ cursor: "pointer", width: "100%" }}
+                />
 
-        <div className="thumbnail-container">
-          {productDetails?.productImage?.map((img, index) => (
-            <div
-              key={index}
-              className={`thumbnail-wrapper ${
-                currentImage === img ? "active-thumb" : ""
-              }`}
-              onClick={() => setCurrentImage(img)}
-            >
-              <img src={img} alt={`Thumbnail ${index + 1}`} />
-            </div>
-          ))}
-        </div>
-      </div>
+                <div className="thumbnail-container">
+                  {productDetails?.productImage?.map((img, index) => (
+                    <div
+                      key={index}
+                      className={`thumbnail-wrapper ${currentImage === img ? "active-thumb" : ""
+                        }`}
+                      onClick={() => setCurrentImage(img)}
+                    >
+                      <img src={img} alt={`Thumbnail ${index + 1}`} />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={handleCloseModal}>
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="close-btn" onClick={handleCloseModal}>
-              ✕
-            </button>
-            <img
-              src={currentImage}
-              alt="Zoomed Product"
-              className="modal-img"
-            />
-          </div>
-        </div>
-      )}
+              {/* Modal */}
+              {isModalOpen && (
+                <div className="modal-overlay" onClick={handleCloseModal}>
+                  <div
+                    className="modal-content"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button className="close-btn" onClick={handleCloseModal}>
+                      ✕
+                    </button>
+                    <img
+                      src={currentImage}
+                      alt="Zoomed Product"
+                      className="modal-img"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

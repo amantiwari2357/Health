@@ -91,7 +91,32 @@ textarea {
     margin-bottom: 0;
   }
 
+
+  .contact-branch-heading{
+    padding: 2rem;
+  }
+
+  .contact-branch-heading h2{
+    margin: 0;
+    font-size: 30px;
+    color: var(--themeColor);
+  }
+
+  .contact-addresses{
+    padding: 1rem;
+    border: 1px solid lightgray;
+  }
+  .contact-addresses p{
+    margin: 0;
+  }
+  .contact-addresses h5{
+    color: var(--themeColor);
+    font-size: 22px;
+  }
   @media only screen and (max-width:768px) {
+    .contact-detail-card{
+      padding: 5px 0;
+    }
     .contact-bread-desc{
       width: 100%;
       margin-top: 0;

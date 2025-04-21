@@ -5,7 +5,7 @@ import address from "../../images/address.gif";
 import email from "../../images/email.gif";
 import time from "../../images/time.gif";
 import { Link } from "react-router-dom";
-import gmap from "../../images/gmap.png";
+import gmap from "../../images/map.png";
 
 import { Helmet } from "react-helmet";
 import axios from "axios";
@@ -154,11 +154,11 @@ const Contact = () => {
                         className="contact-icon"
                       />
                       <h5 className="mb-0 ml-3">
-                        <b>Address</b>
+                        <b>Head Office</b>
                       </h5>
                     </div>
                     <address className="contact-address">
-                      NO. 50 , Pocket I, FACOTORY, DSIIDC Industrial Area,
+                      Plot NO. 50 , Pocket I, FACOTORY, DSIIDC Industrial Area,
                       Sector 4, Bawana, Delhi, 110039
                     </address>
                   </div>
@@ -282,11 +282,58 @@ const Contact = () => {
       </section>
 
       <section className="gmap-section">
-        <h2 className="text-center">
-          Our <span style={{ color: "rgb(110, 132, 208)" }}>Branches</span>
-        </h2>
-        <div className="our-branches">
-          <img src={gmap} alt="" className="gmapimage" />
+        <div className="contact-branch-heading">
+          <h2 className="text-center">
+            Our Branches
+          </h2>
+        </div>
+        <div className="container-fluid mb-3">
+          <div className="row">
+            <div className="col-md-8">
+              <div>
+                <div className="our-branches">
+                  <img src={gmap} alt="" className="gmapimage" />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div>
+                <div className="contact-addresses">
+                  <h5>Regd. Address</h5>
+                  <p>Plot No. 50, Pkt. I, Sector-4 Bawana
+                    Industrial Area, Delhi - 110039 
+                   <br /> <b> E mail:</b> swlifecare17@gmail.com
+                   <br />
+                    <b> Customercare No. :</b> +91-9870405515
+                    <br />
+                    <b>Web :</b> www.swhealthcares.com</p>
+                </div>
+                <div className="contact-addresses">
+                  <h5>Manufacturing Unit-1 </h5>
+                  <p>Plot No. 50, Pkt. I, Sector-4
+                    Bawana Industrial Area,
+                    Deihi 110039</p>
+                </div>
+                <div className="contact-addresses">
+                  <h5>Manufacturing Unit-2 </h5>
+                  <p>VISMED HEALTH CARE PVT. LTD.
+                    Khasra No. 218/2/1, 1st Floor, Sanwer, Mangaliya Road, Todi, Indore, Madhya Pradesh, 453771</p>
+                </div>
+                <div className="contact-addresses">
+                  <h5>Raipur Branch: </h5>
+                  <p>D-29, Devendra Nagar Hemukalyani Ward, Raipur
+                    Chattisgarh - 492001</p>
+                </div>
+                <div className="contact-addresses">
+                  <h5>Indore Branch : </h5>
+                  <p>42-43, 4th Floor, (D.B.) 13-14 Tagore Centre, RNT Marg,
+                    Indore-452001
+                    Madhya Pradesh, India</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

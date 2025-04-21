@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "./testimonials.css";
 import comaImage from "../../images/coma.png";
@@ -42,6 +42,12 @@ const testimonialsData = [
 ];
 
 const Testimonial = () => {
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  const toggleExpand = (index) => {
+    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -59,21 +65,45 @@ const Testimonial = () => {
     ],
   };
 
+  const getShortText = (text) => {
+    const words = text.split(" ");
+    if (words.length <= 25) return text;
+    return words.slice(0, 25).join(" ") + "...";
+  };
+
   return (
     <section className="testimonial-section">
       <div className="container">
         <h2 className="section-title">What Our Customers Say</h2>
         <Slider {...sliderSettings}>
-          {testimonialsData.map((testimonial, index) => (
-            <div className="testimonial-card" key={index}>
-              <div className="testimonial-content">
-                <img src={testimonial.image} alt="Quote" className="quote-icon" />
-                <p className="testimonial-feedback">{testimonial.feedback}</p>
-                <h5 className="customer-name">{testimonial.name}</h5>
-                <p className="customer-location">{testimonial.location}</p>
+          {testimonialsData.map((testimonial, index) => {
+            const isExpanded = expandedIndex === index;
+            const words = testimonial.feedback.split(" ");
+            const shouldTruncate = words.length > 25;
+
+            return (
+              <div className="testimonial-card" key={index}>
+                <div className="testimonial-content">
+                  <img src={testimonial.image} alt="Quote" className="quote-icon" />
+                  <p className="testimonial-feedback">
+                    {isExpanded || !shouldTruncate
+                      ? testimonial.feedback
+                      : getShortText(testimonial.feedback)}
+                  {shouldTruncate && (
+                    <p
+                      className="read-more-btn"
+                      onClick={() => toggleExpand(index)}
+                    >
+                      {isExpanded ? "Show less" : "Read more"}
+                    </p>
+                  )}
+                  </p>
+                  <h5 className="customer-name">{testimonial.name}</h5>
+                  <p className="customer-location">{testimonial.location}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Slider>
       </div>
     </section>

@@ -28,6 +28,8 @@ import Articles from './Pages/Articles/Articles'
 import ArticleDetails from './Pages/Articles/ArticleDetails'
 import Events from './Pages/Event/Event'
 import EventDetails from './Pages/Event/EventDetails'
+import ProductByCategory from './Pages/productByCategory/ProductByCategory'
+
 const App = () => {
   return (
     <>
@@ -57,7 +59,7 @@ const App = () => {
           <Route path="/article/:id" element={<ArticleDetails />} />
           <Route path="/event" element={<Events />} />
           <Route path="/event/:id" element={<EventDetails />} />
-
+<Route path='/product-by-category/:id' element={<ProductByCategory />} />
         </Routes>
         <Footer />
       </BrowserRouter>

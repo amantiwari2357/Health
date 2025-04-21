@@ -32,15 +32,16 @@
 }
 
 .tab-content {
-  margin-top: 10px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
 .productName {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   gap: 10px;
+  margin-top: 30px;
+  margin-bottom: 1rem;
 }
 
 .tabsection {
@@ -50,17 +51,19 @@
 .product_heading_tab {
   display: flex;
   justify-content: space-between;
+  align-items: end;
 }
 
 @media only screen and (max-width: 768px) {
+  .productName{
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
   .pruduct-spacing {
     margin-bottom: 2rem;
   }
   .productName{
     align-items: center;
-  }
-  .product-title{
-    text-align: center;
   }
   .product_heading_tab {
     display: grid;
@@ -72,6 +75,7 @@
     width: 100%;
     font-size: 12px;
     margin: auto;
+    text-align: start;
   }
 
   .product_heading_tab h2 {
@@ -84,5 +88,6 @@
 
   .tab-button {
     padding: 3px 5px;
+    font-size: 12px;
   }
 }

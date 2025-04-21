@@ -3,6 +3,7 @@ import "./header.css";
 import logo from "../../images/Logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import catPdf from "../../images/catpdf.pdf";
+import axios from "axios";
 // import axios from "axios";
 
 const Header = () => {
@@ -55,6 +56,40 @@ const Header = () => {
   // };
 
   const loginValue = sessionStorage.getItem("Login");
+
+  // Fetch categories on load
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.swhealthcares.com/api/all-category"
+        );
+        const fetchedCategories = response.data;
+        setCategories(fetchedCategories);
+
+        if (fetchedCategories.length > 0) {
+          const firstCategory = fetchedCategories[0];
+          setSelectedCategory(firstCategory._id);
+          // fetchProducts(firstCategory._id, 1, false);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Handle category click
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+    navigate(`/product-by-category/${categoryId}`)
+    // setPage(1);
+    // setHasMore(true);
+    // fetchProducts(categoryId, 1, false);
+  };
   return (
     <>
       {/* Top Header Section */}
@@ -70,14 +105,14 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                  <a
-  href="https://forms.gle/Yot8FHmFj4fvpXh67"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Contact"
->
-  Warranty Registration
-</a>
+                    <a
+                      href="https://forms.gle/Yot8FHmFj4fvpXh67"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Contact"
+                    >
+                      Warranty Registration
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -125,6 +160,7 @@ const Header = () => {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 aria-label="Search"
+                className="m-0"
               />
             </div>
             <div className="col-4 p-0 text-end">
@@ -174,9 +210,24 @@ const Header = () => {
                   <li>
                     <Link to="/">Home</Link>
                   </li>
-                  <li>
-                    <Link to="/all-products">Our Products</Link>
+                  <li className="custom-dropdown">
+                    <span className="custom-dropdown-toggle"><Link to={'/all-products'}> Our Category</Link></span>
+                    <ul className="custom-dropdown-menu">
+                      {categories.map((category) => (
+                        <li
+                        style={{cursor:'pointer'}}
+                          key={category._id}
+                          className={
+                            selectedCategory === category._id ? "active-category" : ""
+                          }
+                          onClick={() => handleCategoryChange(category._id)}
+                        >
+                          {category.categoryName}
+                        </li>
+                      ))}
+                    </ul>
                   </li>
+
                   <li>
                     <Link to="/contact-us">Contact Us</Link>
                   </li>
@@ -262,18 +313,18 @@ const Header = () => {
             <Link to="/all-products">Products</Link>
           </li>
           <li>
-          <a
-         
-  href="https://forms.gle/Yot8FHmFj4fvpXh67"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Contact"
-  onClick={toggleSidebar}
->
-  Warranty Registration
-</a>
+            <a
+
+              href="https://forms.gle/Yot8FHmFj4fvpXh67"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contact"
+              onClick={toggleSidebar}
+            >
+              Warranty Registration
+            </a>
           </li>
-        
+
         </ul>
       </aside>
     </>
