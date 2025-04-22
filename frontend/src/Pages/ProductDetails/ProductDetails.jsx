@@ -265,13 +265,12 @@ const ProductDetails = () => {
                 </div>
               </div> */}
 
-              <div className="slider-container">
+              <div className="slider-container" style={{display:"grid" , justifyContent:'center'}}>
                 <img
                   src={currentImage}
                   alt="Main Product"
                   className="main-image"
                   onClick={handleOpenModal}
-                  style={{ cursor: "pointer", width: "100%" }}
                 />
 
                 <div className="thumbnail-container">
