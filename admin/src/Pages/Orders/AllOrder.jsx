@@ -13,7 +13,7 @@ const AllOrder = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/order-data"
+        "https://api.swhealthcares.com/api/order-data"
       );
       if (response.status === 200) {
         setOrders(response.data.data);
@@ -45,7 +45,7 @@ const AllOrder = () => {
 
       if (result.isConfirmed) {
         const response = await axios.delete(
-          `http://localhost:8000/api/delete-order-data/${orderId}`
+          `https://api.swhealthcares.com/api/delete-order-data/${orderId}`
         );
         if (response.status === 200) {
           toast.success("Order deleted successfully!");

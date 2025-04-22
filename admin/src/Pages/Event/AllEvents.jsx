@@ -15,7 +15,7 @@ const AllEvents = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/events/all-event"
+          "https://api.swhealthcares.com/api/events/all-event"
         );
         setEvents(response.data.events);
       } catch (error) {
@@ -42,7 +42,7 @@ const AllEvents = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `http://localhost:8000/api/events/delete-event/${eventId}`
+          `https://api.swhealthcares.com/api/events/delete-event/${eventId}`
         );
         setEvents(events.filter((event) => event._id !== eventId)); // Remove the deleted banner from the state
         Swal.fire("Deleted!", "Your event has been deleted.", "success");

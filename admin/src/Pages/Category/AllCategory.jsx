@@ -14,7 +14,7 @@ const AllCategory = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/all-category"
+          "https://api.swhealthcares.com/api/all-category"
         ); // Replace with your API endpoint
         console.log(response);
         setCategories(response.data);
@@ -40,7 +40,7 @@ const AllCategory = () => {
     if (confirmDelete.isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:8000/api/delete-category/${id}`
+          `https://api.swhealthcares.com/api/delete-category/${id}`
         ); // Replace with your API endpoint
         setCategories(categories.filter((category) => category._id !== id)); // Update state
         Swal.fire("Deleted!", "The category has been deleted.", "success");

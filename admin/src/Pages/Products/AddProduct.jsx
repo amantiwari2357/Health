@@ -29,7 +29,7 @@ const AddProduct = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/all-category"
+          "https://api.swhealthcares.com/api/all-category"
         );
         setCategories(response.data); // Set categories to state
       } catch (error) {
@@ -110,7 +110,7 @@ const AddProduct = () => {
       }
       // Send the data to backend API
       const response = await axios.post(
-        "http://localhost:8000/api/add-product",
+        "https://api.swhealthcares.com/api/add-product",
         formDataToSubmit,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
