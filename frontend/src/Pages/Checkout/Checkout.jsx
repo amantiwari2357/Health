@@ -175,7 +175,7 @@ setOriginalSubtotal(tempSubtotal);
             if (paymentMethod === "Online") {
               const { razorpayOrder } = res.data;
               const options = {
-                key: "rzp_test_TmsfO3hloFEA31",
+                key: "rzp_live_kUQ2ViSJCcE7OR",
                 amount: razorpayOrder.amount,
                 currency: "INR",
                 name: "Sw Health Cares",
