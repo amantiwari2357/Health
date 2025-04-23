@@ -60,6 +60,7 @@ const Checkout = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
+        calculateCartSummary(cartItems);
         setError(error.response.data.message || "Invalid or expired voucher!");
       } else {
         console.error("Error applying voucher:", error);
@@ -83,46 +84,15 @@ const Checkout = () => {
     postalCode: "",
   });
 
-  useEffect(() => {
-    if (userData.name && userData.email) {
-      setShippingAddress((prevState) => ({
-        ...prevState,
-        name: userData.name,
-        email: userData.email,
-      }));
-    }
-  }, [userData]);
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    const savedCartItems =
-      JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
-    setCartItems(savedCartItems);
-    calculateCartSummary(savedCartItems);
-  }, []);
-
-  useEffect(() => {
-    if (shippingAddress.postalCode) {
-      calculateCartSummary(cartItems);
-    }
-  }, [shippingAddress.postalCode, cartItems]);
-
-  useEffect(() => {
-    if (subtotal && shipping !== null) {
-      setTotal(subtotal + shipping);
-    }
-  }, [subtotal, shipping]);
 
   const calculateCartSummary = async (cartItems) => {
     let tempSubtotal = 0;
     cartItems.forEach((item) => {
       tempSubtotal += item.price * item.quantity;
     });
-    setOriginalSubtotal(tempSubtotal);
 
+    setSubtotal(tempSubtotal);
+setOriginalSubtotal(tempSubtotal);
     const pincode = shippingAddress.postalCode;
     if (pincode) {
       try {
@@ -143,10 +113,10 @@ const Checkout = () => {
         }
       } catch (error) {
         console.error("Error fetching shipping charge:", error);
-        setShipping(0); // Fallback shipping charge in case of an error
+        setShipping(0); 
       }
     } else {
-      setShipping(0); // Default shipping if no pincode is provided
+      setShipping(0); 
     }
 
     // Calculate total with shipping charge
@@ -259,6 +229,39 @@ const Checkout = () => {
     setIsPopupVisible(false);
     navigate("/"); // Redirect to home page or a confirmation page
   };
+  useEffect(() => {
+    if (shippingAddress.postalCode) {
+      calculateCartSummary(cartItems);
+    }
+  }, [shippingAddress.postalCode, cartItems]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    const savedCartItems =
+      JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
+    setCartItems(savedCartItems);
+    calculateCartSummary(savedCartItems);
+  }, []);
+
+  useEffect(() => {
+    if (userData.name && userData.email) {
+      setShippingAddress((prevState) => ({
+        ...prevState,
+        name: userData.name,
+        email: userData.email,
+      }));
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (subtotal && shipping !== null) {
+      setTotal(subtotal + shipping);
+    }
+  }, [subtotal, shipping]);
+
   return (
     <>
       <Helmet>
@@ -455,7 +458,7 @@ const Checkout = () => {
                     <tbody>
                       <tr>
                         <td>Sub-Total</td>
-                        <td>&#8377;{subtotal}</td>
+                        <td>&#8377;{originalSubtotal}</td>
                       </tr>
                       <tr>
                         <td>Shipping</td>
