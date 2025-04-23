@@ -204,11 +204,25 @@ const searchProducts = async (req, res) => {
     }
 };
 
+const categoryProduct= async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+        
+        const products = await Product.find({ categoryName:id }).populate("categoryName", "categoryName categoryStatus");
+        res.status(200).json({ products });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to fetch products", error: error.message });
+    }
+}
+
 module.exports = {
     createProduct,
     getAllProducts,
     getProductById,
     updateProduct,
     deleteProduct,
-    searchProducts // Export the new search controller
+    searchProducts,
+    categoryProduct
+    // Export the new search controller
 };
