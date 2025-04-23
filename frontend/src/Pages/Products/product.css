@@ -82,6 +82,23 @@
   margin-bottom: 6rem;
 }
 
+.headings h2 {
+    color: var(--themeColor);
+    font-size: 40px;
+}
+.headings{
+  margin-bottom: 7.2rem;
+}
+@media only screen and (max-width: 768px) {
+  .headings h2 {
+      font-size: 25px;
+  }
+  .headings{
+    margin-top: 20px; 
+    margin-bottom: 0rem;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .res-margin {
     margin-bottom: 3rem;
@@ -132,3 +149,4 @@
   }
 
 }
+

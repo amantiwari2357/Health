@@ -15,68 +15,35 @@ const ProductByCategory = () => {
   
   const {id}=useParams()
   // Fetch categories on load
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
-        );
-        const fetchedCategories = response.data;
-        setCategories(fetchedCategories);
-  
-        if (fetchedCategories.length > 0) {
-          
-          const selectedCategory=  fetchedCategories.find((c)=> c._id === id)
-          
-         setSelectedCategory(selectedCategory?._id); // Set selectedCategory, will trigger useEffect below
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.swhealthcares.com/api/all-category"
+      );
+      const fetchedCategories = response.data;
+      setCategories(fetchedCategories);
+
+      if (fetchedCategories.length > 0) {
+        
+        const selectedCategory=  fetchedCategories.find((c)=> c._id === id)
+        console.log("selectedCategory", selectedCategory);
+        
+       setSelectedCategory(selectedCategory?._id); // Set selectedCategory, will trigger useEffect below
       }
-    };
-    fetchCategories();
-  }, [id]);
-  
-  // Fetch products when selectedCategory changes (initial + on click)
-  useEffect(() => {
-    if (selectedCategory) {
-      setPage(1);
-      setHasMore(true);
-      fetchProducts(selectedCategory, 1, false);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
-  }, [selectedCategory]);
-  
-  // Fetch products when page changes (for infinite scroll)
-  useEffect(() => {
-    if (page > 1 && selectedCategory) {
-      fetchProducts(selectedCategory, page, true);
-    }
-  }, [page]);
-  
-  // Fetch products function
-  const fetchProducts = async (categoryId, currentPage = 1, append = false) => {
+  };
+
+  const fetchProducts = async (categoryId) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://api.swhealthcares.com/api/get-product?page=${currentPage}&limit=10`
+        `https://api.swhealthcares.com/api/get-product-by-category/${categoryId}`
       );
-  
-      const filtered = response.data.products.filter(
-        (product) => product.categoryName._id === categoryId
-      );
-  
-      if (filtered.length === 0) {
-        setHasMore(false);
-      }
-  
-      setProducts((prev) => {
-        const newProducts = append ? [...prev, ...filtered] : filtered;
-  
-        // Remove duplicates based on _id
-        const uniqueProducts = Array.from(new Map(newProducts.map(p => [p._id, p])).values());
-        return uniqueProducts;
-      });
-  
+
+      const data = response?.data?.products
+      setProducts(data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -84,30 +51,13 @@ const ProductByCategory = () => {
     }
   };
   
-  // On scroll, load more
-  useEffect(() => {
-    const handleScroll = () => {
-      const buffer = 200;
-  
-      if (
-        window.innerHeight + document.documentElement.scrollTop + buffer >=
-          document.documentElement.scrollHeight &&
-        hasMore &&
-        !loading
-      ) {
-        setPage((prev) => prev + 1);
-      }
-    };
-  
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasMore, loading]);
-  
+
   // Handle category click
   const handleCategoryChange = (categoryId) => {
     if (categoryId !== selectedCategory) {
       setSelectedCategory(categoryId);
     }
+    navigate(`/product-by-category/${categoryId}`)
   };
   
   const handleViewDetails = (product) => {
@@ -116,6 +66,12 @@ const ProductByCategory = () => {
     );
   };
   
+  useEffect(()=>{
+fetchProducts(id)
+fetchCategories();
+
+  },[id])
+
   function truncateText(text, charLimit) {
     if (text.length > charLimit) {
       return text.slice(0, charLimit) + "...";

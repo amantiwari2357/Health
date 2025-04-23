@@ -1,4 +1,4 @@
-const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct, searchProducts } = require("../Controller/ProductController")
+const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct, searchProducts, categoryProduct } = require("../Controller/ProductController")
 const upload = require("../Middlewares/Multer")
 
 const ProductRouter = require("express").Router()
@@ -14,7 +14,7 @@ ProductRouter.put("/update-product/:id",  upload.fields([
     { name: "productPdf", maxCount: 1 },
   ]), updateProduct)
 ProductRouter.delete("/delete-product/:id", deleteProduct)
-
+ProductRouter.get("/get-product-by-category/:id", categoryProduct)
 ProductRouter.get("/search", searchProducts);
 
 

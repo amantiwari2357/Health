@@ -12,67 +12,38 @@ const Products = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
-  // Fetch categories on load
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.swhealthcares.com/api/all-category"
+      );
+      const fetchedCategories = response.data;
+      setCategories(fetchedCategories);
+
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
-        );
-        const fetchedCategories = response.data;
-        setCategories(fetchedCategories);
-  
-        if (fetchedCategories.length > 0) {
-          const firstCategory = fetchedCategories[0];
-          setSelectedCategory(firstCategory._id); // Set selectedCategory, will trigger useEffect below
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    fetchCategories();
+    fetchProducts(1, false); 
   }, []);
-  
-  // Fetch products when selectedCategory changes (initial + on click)
-  useEffect(() => {
-    if (selectedCategory) {
-      setPage(1);
-      setHasMore(true);
-      fetchProducts(selectedCategory, 1, false);
-    }
-  }, [selectedCategory]);
-  
-  // Fetch products when page changes (for infinite scroll)
-  useEffect(() => {
-    if (page > 1 && selectedCategory) {
-      fetchProducts(selectedCategory, page, true);
-    }
-  }, [page]);
-  
-  // Fetch products function
-  const fetchProducts = async (categoryId, currentPage = 1, append = false) => {
+  const fetchProducts = async ( currentPage = 1, append = false) => {
     try {
       setLoading(true);
       const response = await axios.get(
         `https://api.swhealthcares.com/api/get-product?page=${currentPage}&limit=10`
       );
   
-      const filtered = response.data.products.filter(
-        (product) => product.categoryName._id === categoryId
-      );
+      console.log("filtered", response);
+      const filtered = response.data.products
   
       if (filtered.length === 0) {
         setHasMore(false);
+      }else{
+
+        setProducts(append ? [...products, ...filtered] : filtered);
       }
-  
-      setProducts((prev) => {
-        const newProducts = append ? [...prev, ...filtered] : filtered;
-  
-        // Remove duplicates based on _id
-        const uniqueProducts = Array.from(new Map(newProducts.map(p => [p._id, p])).values());
-        return uniqueProducts;
-      });
   
       setLoading(false);
     } catch (error) {
@@ -84,7 +55,7 @@ const Products = () => {
   // On scroll, load more
   useEffect(() => {
     const handleScroll = () => {
-      const buffer = 200;
+      const buffer = 700;
   
       if (
         window.innerHeight + document.documentElement.scrollTop + buffer >=
@@ -99,13 +70,18 @@ const Products = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasMore, loading]);
-  
   // Handle category click
   const handleCategoryChange = (categoryId) => {
     if (categoryId !== selectedCategory) {
       setSelectedCategory(categoryId);
     }
+    navigate(`/product-by-category/${categoryId}`)
+
   };
+  
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   
   const handleViewDetails = (product) => {
     navigate(
@@ -113,6 +89,11 @@ const Products = () => {
     );
   };
   
+  useEffect(() => {
+    if (page > 1) {
+      fetchProducts( page, true);
+    }
+  }, [page]);
   function truncateText(text, charLimit) {
     if (text.length > charLimit) {
       return text.slice(0, charLimit) + "...";
@@ -155,6 +136,9 @@ const Products = () => {
 
             {/* All Products */}
             <div className="col-md-9">
+              <div className="headings">
+                <h2>All Products</h2>
+              </div>
               <div className="all-products">
                 <div className="row">
                   {products.map((product, index) => (
