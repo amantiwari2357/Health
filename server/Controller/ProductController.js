@@ -10,6 +10,8 @@ const createProduct = async (req, res) => {
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ message: "At least one product image is required" });
         }
+        console.log("req.body",req.body);
+        
         const pdfFile = req.files["productPdf"]?.[0];
         // Upload images and get the URLs
         const imageUrls = [];
@@ -28,7 +30,7 @@ const createProduct = async (req, res) => {
             productName,
             productDetails,
             productDescription,
-            productPrice, productDiscountPercentage, productFinalPrice, stock, tax,
+            productPrice:Number(productPrice), productDiscountPercentage:Number(productDiscountPercentage), productFinalPrice:Number(productFinalPrice), stock, tax:Number(tax),
             productImage: imageUrls,// Store all image URLs in an array
             productStatus: productStatus || false,
             bestseller: bestseller || false,
@@ -43,8 +45,8 @@ const createProduct = async (req, res) => {
     } catch (error) {
         console.log(error)
         if (req.files) {
-            // Ensure image deletion on failure for all uploaded images
-            req.files.forEach(file => deleteImage(file.path));
+
+            req.files?.forEach(file => deleteImage(file.path));
         }
         res.status(500).json({ message: "Failed to create product", error: error.message });
     }

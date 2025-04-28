@@ -53,8 +53,6 @@ const ProductSchema = new mongoose.Schema({
     },
     productPdf: {
         type: String,
-        required: true,
-        default: ""
     },
 });
 
