@@ -35,6 +35,9 @@ import EditArticles from '../../Pages/Article/EditArticles'
 import AllVouchers from '../../Pages/Coupon/AllCoupon'
 import AddVouchers from '../../Pages/Coupon/AddCoupon'
 import EditVouchers from '../../Pages/Coupon/EditCoupon'
+import AllReviews from '../../Pages/Review/AllReview'
+import AddReview from '../../Pages/Review/AddReview'
+import EditReview from '../../Pages/Review/EditReview'
 
 const Home = () => {
   const loginValue = localStorage.getItem("login")
@@ -106,6 +109,9 @@ const Home = () => {
 <Route path='/all-vouchers' element={<AllVouchers />} />
 <Route path='/add-voucher' element={<AddVouchers />} />
 <Route path='/edit-voucher/:id' element={<EditVouchers />} />
+<Route path='/all-review' element={<AllReviews/>} />
+<Route path='/add-review' element={<AddReview />} />
+<Route path='/edit-review/:id' element={<EditReview />} />
               {/* all-shop */}
 
             </Routes>

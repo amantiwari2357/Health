@@ -24,6 +24,7 @@ const ContactRouter = require("./Routes/contactRoutes");
 const ArticleRouter = require("./Routes/ArticleRouter");
 const EventRouter = require("./Routes/EventRoutes");
 const VouchersRouter = require("./Routes/VocherRouter");
+const ReviewRouter = require("./Routes/ReviewRouter");
 const app = express();
 
 // Allowed origins (your frontend domains)
@@ -90,6 +91,7 @@ app.use("/api", ContactRouter);
 app.use("/api", ArticleRouter);
 app.use("/api/events", EventRouter)
 app.use("/api/coupon", VouchersRouter)
+app.use("/api/review",ReviewRouter)
 // Start the server
 app.listen(process.env.PORT, () => {
     console.log(`Server is running at ${process.env.PORT} port`);

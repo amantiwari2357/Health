@@ -182,6 +182,20 @@ const Header = () => {
                 <i class="fa-solid fa-calendar-check"></i> Manage Vouchers
               </Link>
             </li>
+            <li
+              className={
+                isActive("/all-review") ||
+                isActive("/add-review") ||
+                isActive("/edit-review")
+                  ? "active"
+                  : ""
+              }
+            >
+              <Link to="/all-review" onClick={handletoggleBtn}>
+                {" "}
+                <i class="fa-solid fa-calendar-check"></i> Manage Reviews
+              </Link>
+            </li>
             {/*   <li className={isActive('/all-users') ? 'active' : ''} ><Link to="/all-users" onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Users</Link></li>
              */}
             <button className="logout mb-5" onClick={logout}>

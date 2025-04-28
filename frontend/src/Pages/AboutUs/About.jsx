@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./about.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -14,11 +14,24 @@ import cert4 from '../../images/image4.png'
 import cert5 from '../../images/image5.png'
 
 const About = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [currentImage, setCurrentImage] = useState("");
+
+  const handleImageClick = (imgSrc) => {
+    setCurrentImage(imgSrc);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setCurrentImage("");
+  };
   useEffect(() => {
     window.scrollTo({
       top: 0,
     })
   }, []);
+
   return (
     <>
       <Helmet>
@@ -147,13 +160,23 @@ const About = () => {
   <h2 className="certification-title">Our <span style={{ color: "rgb(110, 132, 208)" }}>Certifications</span></h2>
 
   <div className="certification-logos">
-    <img src={cert1} alt="Certificate 1" />
-    <img src={cert2} alt="Certificate 2" />
-    <img src={cert3} alt="Certificate 3" />
-    <img src={cert4} alt="Certificate 4" />
-    <img src={cert5} alt="Certificate 5" />
-  
-  </div>
+        <img src={cert1} alt="Certificate 1" onClick={() => handleImageClick(cert1)} />
+        <img src={cert2} alt="Certificate 2" onClick={() => handleImageClick(cert2)} />
+        <img src={cert3} alt="Certificate 3" onClick={() => handleImageClick(cert3)} />
+        <img src={cert4} alt="Certificate 4" onClick={() => handleImageClick(cert4)} />
+        <img src={cert5} alt="Certificate 5" onClick={() => handleImageClick(cert5)} />
+      </div>
+
+      {openModal && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={handleCloseModal}>
+              &times;
+            </button>
+            <img src={currentImage} alt="Certificate Full View" className="modal-image" />
+          </div>
+        </div>
+      )}
 </div>
       
     </>
