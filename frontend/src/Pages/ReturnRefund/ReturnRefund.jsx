@@ -104,8 +104,8 @@ const ReturnRefund = () => {
             </h2>
             <p>
               To initiate a return, please contact us at:
-              <a href="mailto:support@swhealthcare.com" className="highlight">
-                {" "}support@swhealthcare.com
+              <a href="mailto:swhealthcare17@gmail.com" className="highlight">
+                {" "}swhealthcare17@gmail.com
               </a>
               with the following details:
             </p>

@@ -137,8 +137,8 @@ const PrivacyPolicy = () => {
           <p>
             If you would like to exercise any of these rights, please contact us
             at{" "}
-            <a href="mailto:support@swhealthcare.com" class="highlight">
-              support@swhealthcare.com
+            <a href="mailto:swhealthcare17@gmail.com" class="highlight">
+              swhealthcare17@gmail.com
             </a>
             .
           </p>
@@ -166,8 +166,8 @@ const PrivacyPolicy = () => {
           </p>
           <p>
             <strong>Email:</strong>{" "}
-            <a href="mailto:support@swhealthcare.com" class="highlight">
-              support@swhealthcare.com
+            <a href="mailto:swhealthcare17@gmail.com" class="highlight">
+              swhealthcare17@gmail.com
             </a>
           </p>
         </div>

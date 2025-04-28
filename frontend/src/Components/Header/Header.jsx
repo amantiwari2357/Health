@@ -222,7 +222,7 @@ const Header = () => {
                           }
                           onClick={() => handleCategoryChange(category._id)}
                         >
-                          {category.categoryName}
+                          {`${category.categoryName.charAt(0).toUpperCase() + category.categoryName.slice(1)}`}
                         </li>
                       ))}
                     </ul>

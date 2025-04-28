@@ -92,8 +92,8 @@ const DeliveryInformation = () => {
           <h2>4. Issues with Delivery</h2>
           <p>
             If you encounter any issues with your delivery, such as delays or damaged products, please contact our support team at &nbsp;
-            <Link to="mailto:support@swhealthcare.com" className="highlight">
-              support@swhealthcare.com
+            <Link to="mailto:swhealthcare17@gmail.com" className="highlight">
+              swhealthcare17@gmail.com
             </Link>
             &nbsp; or call us at +1 800-123-4567. We also offer easy returns and exchanges within 15 days of delivery.
           </p>
