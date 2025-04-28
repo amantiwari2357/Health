@@ -32,7 +32,7 @@ const createProduct = async (req, res) => {
             productImage: imageUrls,// Store all image URLs in an array
             productStatus: productStatus || false,
             bestseller: bestseller || false,
-            productPdf: pdfUrl || null,
+            productPdf: pdfUrl || "",
         });
 
         const savedProduct = await newProduct.save();
