@@ -14,7 +14,7 @@ const AllSubCategory = () => {
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/get-subcategory"
+          "https://api.swhealthcares.com/api/get-subcategory"
         ); // Adjust API endpoint
         setSubcategories(response.data.subcategories);
       } catch (error) {
@@ -39,7 +39,7 @@ const AllSubCategory = () => {
     if (confirmDelete.isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:8000/api/delete-subcategory/${id}`
+          `https://api.swhealthcares.com/api/delete-subcategory/${id}`
         ); // Replace with your API endpoint
         setSubcategories(
           subcategories.filter((subcategory) => subcategory._id !== id)

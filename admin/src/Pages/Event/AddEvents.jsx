@@ -57,7 +57,7 @@ if(eventVideo){
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/events/create-event",
+        "https://api.swhealthcares.com/api/events/create-event",
         formData,
         {
           headers: {

@@ -23,7 +23,7 @@ const AddVouchers = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/coupon/create-vouchers",
+        "https://api.swhealthcares.com/api/coupon/create-vouchers",
         formData
       );
       setIsLoading(false);

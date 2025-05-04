@@ -16,7 +16,7 @@ const Header = () => {
   const logout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/log-out",
+        "https://api.swhealthcares.com/api/log-out",
         {},
         { withCredentials: true }
       );

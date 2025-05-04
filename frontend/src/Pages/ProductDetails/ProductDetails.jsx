@@ -34,11 +34,11 @@ const ProductDetails = () => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/single-product/${id}`
+          `https://api.swhealthcares.com/api/single-product/${id}`
         );
         setProductDetails(response.data.product);
         // Set the first image as the default selected image
-        setCurrentImage(response.data.product.productImage[0]);
+        setCurrentImage({type:"image",src:response.data.product.productImage[0]});
       } catch (error) {
         console.error("Error fetching product details", error);
       }
@@ -60,7 +60,8 @@ const ProductDetails = () => {
       });
       return;
     }
-    const existingCart = JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
+    const existingCart =
+      JSON.parse(sessionStorage.getItem("Sw Hwalth Cares")) || [];
     const isProductInCart = existingCart.some(
       (item) => item.productId === productDetails._id
     );
@@ -192,11 +193,13 @@ const ProductDetails = () => {
                     &nbsp;
                   </li>
                   <div>
-                    {
-                      productDetails?.productPdf && (
-                        <li>
+                    {productDetails?.productPdf && (
+                      <li>
                         <a
-                          href={productDetails?.productPdf || "https://example.com/pdf"}
+                          href={
+                            productDetails?.productPdf ||
+                            "https://example.com/pdf"
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
@@ -208,15 +211,18 @@ const ProductDetails = () => {
                             textDecoration: "none",
                             transition: "background-color 0.3s ease",
                           }}
-                          onMouseOver={(e) => (e.target.style.backgroundColor = "#15803d")} // green-700
-                          onMouseOut={(e) => (e.target.style.backgroundColor = "#16a34a")} // green-600
+                          onMouseOver={(e) =>
+                            (e.target.style.backgroundColor = "#15803d")
+                          } // green-700
+                          onMouseOut={(e) =>
+                            (e.target.style.backgroundColor = "#16a34a")
+                          } // green-600
                         >
                           View Product PDF
                         </a>
                       </li>
-                      )
-                    }
-                   
+                    )}
+
                     <li>
                       {stock === "Available" ? (
                         <button className="add-to-cart" onClick={addToCart}>
@@ -228,9 +234,7 @@ const ProductDetails = () => {
                         </p>
                       )}
                     </li>
-
                   </div>
-
                 </ul>
               </div>
             </div>
@@ -265,15 +269,18 @@ const ProductDetails = () => {
                 </div>
               </div> */}
 
-              <div className="slider-container" style={{display:"grid" , justifyContent:'center'}}>
-                <img
+              <div
+                className="slider-container"
+                style={{ display: "grid", justifyContent: "center" }}
+              >
+                {/* <img
                   src={currentImage}
                   alt="Main Product"
                   className="main-image"
                   onClick={handleOpenModal}
-                />
+                /> */}
 
-                <div className="thumbnail-container">
+                {/* <div className="thumbnail-container">
                   {productDetails?.productImage?.map((img, index) => (
                     <div
                       key={index}
@@ -284,11 +291,86 @@ const ProductDetails = () => {
                       <img src={img} alt={`Thumbnail ${index + 1}`} />
                     </div>
                   ))}
-                </div>
+                </div> */}
+            {/* Main Media Display */}
+<div
+  className="slider-container"
+  style={{ display: "grid", justifyContent: "center" }}
+>
+  {currentImage.type === "image" ? (
+    <img
+      src={currentImage.src}
+      alt="Main Product"
+      className="main-image"
+      onClick={handleOpenModal}
+    />
+  ) : (
+    <iframe
+     className="main-media"
+      src={`https://www.youtube.com/embed/${currentImage.src}`}
+      title="Main Video"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  )}
+</div>
+
+{/* Thumbnail Section */}
+<div className="thumbnail-container">
+  {productDetails?.productImage?.map((img, index) => (
+    <div
+      key={`img-${index}`}
+      className={`thumbnail-wrapper ${
+        currentImage.type === "image" && currentImage.src === img
+          ? "active-thumb"
+          : ""
+      }`}
+      onClick={() => setCurrentImage({ type: "image", src: img })}
+    >
+      <img src={img} alt={`Thumbnail ${index + 1}`} />
+    </div>
+  ))}
+
+  {productDetails?.productVideos?.map((videoId, index) => {
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+    return (
+      <div
+        key={`vid-${index}`}
+        className={`thumbnail-wrapper ${
+          currentImage.type === "video" && currentImage.src === videoId
+            ? "active-thumb"
+            : ""
+        }`}
+        onClick={() => setCurrentImage({ type: "video", src: videoId })}
+      >
+     <div
+  key={`vid-${index}`}
+  className={`thumbnail-wrapper ${
+    currentImage.type === "video" && currentImage.src === videoId
+      ? "active-thumb"
+      : ""
+  }`}
+  onClick={() => setCurrentImage({ type: "video", src: videoId })}
+  style={{ cursor: "pointer" }}
+>
+  <img
+    src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+    alt={`YouTube thumbnail ${index + 1}`}
+    width="100"
+    height="80"
+  />
+</div>
+      </div>
+    );
+  })}
+</div>
+
               </div>
 
               {/* Modal */}
-              {isModalOpen && (
+              {isModalOpen &&  currentImage.type === "image" && (
                 <div className="modal-overlay" onClick={handleCloseModal}>
                   <div
                     className="modal-content"
@@ -297,11 +379,16 @@ const ProductDetails = () => {
                     <button className="close-btn" onClick={handleCloseModal}>
                       ✕
                     </button>
-                    <img
-                      src={currentImage}
-                      alt="Zoomed Product"
-                      className="modal-img"
-                    />
+                    {
+                      currentImage.type === "image" && (
+                        <img
+                          src={currentImage.src}
+                          alt="Zoomed Product"
+                          className="modal-img"
+                        />
+                      )
+                    }
+                   
                   </div>
                 </div>
               )}

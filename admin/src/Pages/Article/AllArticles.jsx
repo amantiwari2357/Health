@@ -15,7 +15,7 @@ const AllArticles = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/all-events"
+          "https://api.swhealthcares.com/api/all-events"
         );
         console.log(response);
         setEvents(response.data); // Assuming the API returns an array of events
@@ -43,7 +43,7 @@ const AllArticles = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `http://localhost:8000/api/delete-events/${eventId}`
+          `https://api.swhealthcares.com/api/delete-events/${eventId}`
         );
         setEvents(events.filter((event) => event._id !== eventId)); // Remove the deleted event from the state
         Swal.fire("Deleted!", "Your event has been deleted.", "success");

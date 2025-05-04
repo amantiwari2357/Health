@@ -28,6 +28,9 @@ const EditProduct = () => {
 
     const [pdfFile, setPdfFile] = useState(null);
     const extractVideoId = (url) => {
+      if (/^[a-zA-Z0-9_-]{11}$/.test(url)) {
+        return url;
+      }
       const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
       const match = url.match(regExp);
       return match && match[1].length === 11 ? match[1] : null;
@@ -38,7 +41,7 @@ const EditProduct = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/all-category"
+          "https://api.swhealthcares.com/api/all-category"
         );
         setCategories(response.data); // Set categories to state
       } catch (error) {
@@ -52,7 +55,7 @@ const EditProduct = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/single-product/${id}`
+          `https://api.swhealthcares.com/api/single-product/${id}`
         );
         const product = response.data.product;
 
@@ -69,7 +72,7 @@ const EditProduct = () => {
           productImage: product.productImage,
           productStatus: product.productStatus || false,
           bestseller: product.bestseller || false,
-          
+          productVideos: product.productVideos,
         });
       } catch (error) {
         toast.error("Error fetching product");
@@ -127,6 +130,7 @@ const EditProduct = () => {
     ).map((video) => extractVideoId(video));
 
 
+
     try {
       const formDataToSubmit = new FormData();
       formDataToSubmit.append("categoryName", formData.categoryName);
@@ -151,12 +155,12 @@ const EditProduct = () => {
         formDataToSubmit.append("productImage", image);
       });
       if (pdfFile) formDataToSubmit.append("productPdf", pdfFile);
-      if(videoFormData) formDataToSubmit.append("productVideos", videoFormData);
+      if(videoFormData) formDataToSubmit.append("productVideos", JSON.stringify(videoFormData));
 
 
       // Send the data to backend API for updating the product
       const response = await axios.put(
-        `http://localhost:8000/api/update-product/${id}`,
+        `https://api.swhealthcares.com/api/update-product/${id}`,
         formDataToSubmit,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -364,7 +368,7 @@ const EditProduct = () => {
   <label className="form-label">
     Product YouTube Videos <span className="text-muted">(optional)</span>
   </label>
-  {formData.productVideos.map((video, index) => (
+  {formData?.productVideos?.map((video, index) => (
     <div key={index} className="d-flex align-items-center mb-2">
       <input
         type="text"

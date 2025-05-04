@@ -28,7 +28,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/send-enquery",
+        "https://api.swhealthcares.com/api/send-enquery",
         data
       );
       if (res.status === 200) {

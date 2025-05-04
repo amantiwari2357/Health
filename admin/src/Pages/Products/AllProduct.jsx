@@ -11,7 +11,7 @@ const AllProduct = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/get-product"
+          "https://api.swhealthcares.com/api/get-product"
         );
         console.log(response);
         setData(response.data.products.reverse()); // Assuming the response contains a 'products' array
@@ -37,7 +37,7 @@ const AllProduct = () => {
 
       if (result.isConfirmed) {
         const response = await axios.delete(
-          `http://localhost:8000/api/delete-product/${productId}`
+          `https://api.swhealthcares.com/api/delete-product/${productId}`
         );
         toast.success("Product deleted successfully");
         setData(data.filter((item) => item._id !== productId)); // Remove deleted product from state
@@ -51,7 +51,7 @@ const AllProduct = () => {
   const handleStatusChange = async (productId, field, currentValue) => {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/update-product/${productId}`,
+        `https://api.swhealthcares.com/api/update-product/${productId}`,
         {
           [field]: !currentValue, // Dynamically set the field to update
         }

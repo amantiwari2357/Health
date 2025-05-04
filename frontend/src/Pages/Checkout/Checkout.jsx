@@ -22,7 +22,7 @@ const Checkout = () => {
   const getApiData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/get-user/" + userId
+        "https://api.swhealthcares.com/api/get-user/" + userId
       );
 
       if (res.status === 200) {
@@ -38,7 +38,7 @@ const Checkout = () => {
       setError("");
       setSuccess("");
       const response = await axios.post(
-        "http://localhost:8000/api/coupon/validate-voucher",
+        "https://api.swhealthcares.com/api/coupon/validate-voucher",
         { code: voucherCode }
       );
 
@@ -97,7 +97,7 @@ setOriginalSubtotal(tempSubtotal);
     if (pincode) {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/all-pincode"
+          "https://api.swhealthcares.com/api/all-pincode"
         );
         const pinCodeData = response.data.find(
           (item) => item.pincode === parseInt(pincode)
@@ -167,7 +167,7 @@ setOriginalSubtotal(tempSubtotal);
 
         try {
           const res = await axios.post(
-            "http://localhost:8000/api/checkout",
+            "https://api.swhealthcares.com/api/checkout",
             checkoutData
           );
           console.log(res);
@@ -183,7 +183,7 @@ setOriginalSubtotal(tempSubtotal);
                 order_id: razorpayOrder.id,
                 handler: async (response) => {
                   const verifyResponse = await axios.post(
-                    "http://localhost:8000/api/payment/verify",
+                    "https://api.swhealthcares.com/api/payment/verify",
                     {
                       razorpay_payment_id: response.razorpay_payment_id,
                       razorpay_order_id: response.razorpay_order_id,

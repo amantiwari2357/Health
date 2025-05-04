@@ -15,7 +15,7 @@ const Products = () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/all-category"
+        "https://api.swhealthcares.com/api/all-category"
       );
       const fetchedCategories = response.data;
       setCategories(fetchedCategories);
@@ -32,7 +32,7 @@ const Products = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8000/api/get-product?page=${currentPage}&limit=10`
+        `https://api.swhealthcares.com/api/get-product?page=${currentPage}&limit=10`
       );
   
       console.log("filtered", response);

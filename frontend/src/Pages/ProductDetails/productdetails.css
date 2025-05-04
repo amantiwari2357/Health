@@ -237,3 +237,17 @@
   }
 
 }
+
+/* youtube video */
+.main-media {
+  width: 500px;
+  height: 500px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .main-media {
+    width: 100%;
+    height: 300px;
+  }
+}

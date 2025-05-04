@@ -34,7 +34,7 @@ const createProduct = async (req, res) => {
             productStatus: productStatus || false,
             bestseller: bestseller || false,
             productPdf: pdfUrl || "",
-            productVideos: productVideos || []
+            productVideos: JSON.parse(productVideos) || []
         });
 
         const savedProduct = await newProduct.save();
@@ -122,7 +122,7 @@ const updateProduct = async (req, res) => {
         if (tax) product.tax = tax;
         if (productStatus !== undefined) product.productStatus = productStatus;
         if (bestseller !== undefined) product.bestseller = bestseller;
-product.productVideos = productVideos ?? product.productVideos;
+product.productVideos = JSON.parse(productVideos) ?? product.productVideos;
         if (req.files && req.files.length > 0) {
             // Delete old images from Cloudinary before updating
             for (let oldImage of product.productImage) {

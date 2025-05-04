@@ -26,7 +26,7 @@ const extractVideoId = (url) => {
     const fetcheventsData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/events/single-event/${id}`
+          `https://api.swhealthcares.com/api/events/single-event/${id}`
         );
 
         setEventsData({
@@ -90,7 +90,7 @@ const extractVideoId = (url) => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/events/update-event/${id}`,
+        `https://api.swhealthcares.com/api/events/update-event/${id}`,
         formData,
         {
           headers: {
