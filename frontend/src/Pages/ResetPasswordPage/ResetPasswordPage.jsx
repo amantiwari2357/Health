@@ -22,7 +22,7 @@ const ResetPasswordPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/reset-password",
+        "http://localhost:8000/api/reset-password",
         {
           token,
           newPassword,

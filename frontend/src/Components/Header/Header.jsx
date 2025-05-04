@@ -45,7 +45,7 @@ const Header = () => {
   //   }
 
   //   try {
-  //     const response = await axios.get(`https://api.swhealthcares.com/api/search`, {
+  //     const response = await axios.get(`http://localhost:8000/api/search`, {
   //       params: { productName: value }, // Pass query params in Axios
   //     });
   //     console.log(response);
@@ -65,7 +65,7 @@ const Header = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "http://localhost:8000/api/all-category"
         );
         const fetchedCategories = response.data;
         setCategories(fetchedCategories);

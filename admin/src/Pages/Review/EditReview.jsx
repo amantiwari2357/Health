@@ -19,7 +19,7 @@ const EditReview = () => {
     const fetchReviewDetails = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/review/single-review/${id}` 
+          `http://localhost:8000/api/review/single-review/${id}` 
         );
         const data=response?.data?.[0]
        
@@ -72,7 +72,7 @@ const EditReview = () => {
 
     try {
       await axios.put(
-        `https://api.swhealthcares.com/api/review/update-review/${id}`, 
+        `http://localhost:8000/api/review/update-review/${id}`, 
         {
           review: reviewData.review,
           location: reviewData.locationName,

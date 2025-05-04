@@ -54,6 +54,9 @@ const ProductSchema = new mongoose.Schema({
     productPdf: {
         type: String,
     },
+    productVideos: {
+        type: [String],
+    }
 });
 
 const Product = mongoose.model("Product", ProductSchema);

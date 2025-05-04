@@ -4,14 +4,24 @@ import axios from "axios";
 import "./EventDetails.css";
 const Events = () => {
   const [data, setData] = useState([]);
-
+  const [video, setVideo] = useState([]);
   const getapiData = async () => {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/events/all-event"
+        "http://localhost:8000/api/events/all-event"
       );
-      setData(response.data.events);
-      console.log(response.data.events);
+      setData(
+        response?.data?.events.filter(
+          (event) => event.eventStatus === true && event.eventImages.length > 0
+        )
+      );
+      const videoData=  response?.data?.events.filter(
+        (event) => event.eventStatus === true && event.eventVideo
+      )?.reverse()
+      setVideo(
+      videoData
+      );
+
     } catch (error) {
       console.log(error);
     }
@@ -58,32 +68,48 @@ const Events = () => {
         <div className="container">
           <div className="row g-4">
             <div className="event-container">
-            {data &&
-  data.map((event, eventIndex) => {
-    return (
-      <div key={eventIndex} style={eventIndex > 0 ? { marginTop: "20px" } : {}}>
-        <h1>{event.eventName}</h1>
-        <div className="row">
-          {event.eventImages.map((image, imgIndex) => (
-            <div
-              className="col-md-3 col-sm-6 col-12 event-card"
-              key={`${eventIndex}-${imgIndex}`}
-            >
-              <img
-                src={image}
-                alt={`Event ${imgIndex + 1}`}
-                className="event-card-img"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  })}
-
+              {data &&
+                data.map((event, eventIndex) => {
+                  return (
+                    <div
+                      key={eventIndex}
+                      style={eventIndex > 0 ? { marginTop: "20px" } : {}}
+                    >
+                      <h1>{event.eventName}</h1>
+                      <div className="row">
+                        {event.eventImages.map((image, imgIndex) => (
+                          <div
+                            className="col-md-3 col-sm-6 col-12 event-card"
+                            key={`${eventIndex}-${imgIndex}`}
+                          >
+                            <img
+                              src={image}
+                              alt={`Event ${imgIndex + 1}`}
+                              className="event-card-img"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
+        <div className="p-4 max-w-7xl mx-auto">
+      <h1 style={{ textAlign: "center" , marginTop: "40px"}}>Event Videos</h1>
+      <div className="event-video-container">
+  {video.map((video, index) => (
+    <div key={index} className="event-video-card">
+      <iframe
+        src={`https://www.youtube.com/embed/${video.eventVideo}?autoplay=1&mute=1&controls=1&loop=1&playlist=${video.eventVideo}&modestbranding=1&rel=0`}
+        title={`YouTube Video ${index + 1}`}
+        allowFullScreen
+      />
+    </div>
+  ))}
+</div>
+    </div>
       </section>
     </>
   );

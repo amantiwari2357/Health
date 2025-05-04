@@ -11,9 +11,15 @@ const AddEvents = () => {
     eventsStatus: false,
   });
   const [eventName, setEventName] = useState("");
-
+const [eventVideo, setEventVideo] = useState("");
   const navigate = useNavigate();
   // Handle file input change
+
+  const extractVideoId = (url) => {
+    const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[1].length === 11 ? match[1] : null;
+  };
   const handleFileChange = (e) => {
     const { name, files } = e.target;
 
@@ -30,8 +36,11 @@ const AddEvents = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!eventVideo && !data.eventsImage){
+      toast.error("Please select image or video");
+      return;
+    }
     setIsLoading(true);
-
     const formData = new FormData();
 
     if (data.eventsImage) {
@@ -39,13 +48,16 @@ const AddEvents = () => {
         formData.append("eventImages", image);
       });
     }
-
-    formData.append("eventsStatus", data.eventsStatus);
+if(eventVideo){
+  const videoId=extractVideoId(eventVideo);
+  formData.append("eventVideo", videoId);
+}
+    formData.append("eventStatus", data.eventsStatus);
     formData.append("eventName", eventName);
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/events/create-event",
+        "http://localhost:8000/api/events/create-event",
         formData,
         {
           headers: {
@@ -99,9 +111,25 @@ const AddEvents = () => {
               required
             />
           </div>
+        <div className="col-md-6">
+            <label htmlFor="eventsImage" className="form-label">
+              Events Youtube Video Url
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="eventName"
+              name="eventName"
+              multiple
+              onChange={(e) => setEventVideo(e.target.value)}
+              value={eventVideo}
+              placeholder="Events Youtube Video Url"
+             
+            />
+          </div>
           <div className="col-md-6">
             <label htmlFor="eventsImage" className="form-label">
-              Events Image<sup className="text-danger">*</sup>
+              Events Image
             </label>
             <input
               type="file"
@@ -110,7 +138,7 @@ const AddEvents = () => {
               name="eventsImage"
               multiple
               onChange={handleFileChange}
-              required
+              
             />
           </div>
 

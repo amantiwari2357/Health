@@ -22,6 +22,7 @@ const AddProduct = () => {
     productImage: [],
     productStatus: false,
     bestseller: false,
+    productVideos: [""],
   });
   const [pdfFile, setPdfFile] = useState(null);
   // Fetch categories from API when the component mounts
@@ -29,7 +30,7 @@ const AddProduct = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "http://localhost:8000/api/all-category"
         );
         setCategories(response.data); // Set categories to state
       } catch (error) {
@@ -74,10 +75,34 @@ const AddProduct = () => {
   const handlePdfChange = (e) => {
     setPdfFile(e.target.files[0]);
   };
+  const extractVideoId = (url) => {
+    const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[1].length === 11 ? match[1] : null;
+  };
 
+
+  const handleVideoChange = (index, value) => {
+    const updatedVideos = [...formData.productVideos];
+    updatedVideos[index] = value;
+    setFormData({ ...formData, productVideos: updatedVideos });
+  };
+  
+  const handleAddVideo = () => {
+    setFormData({ ...formData, productVideos: [...formData.productVideos, ""] });
+  };
+  
+  const handleRemoveVideo = (index) => {
+    const updatedVideos = formData.productVideos.filter((_, i) => i !== index);
+    setFormData({ ...formData, productVideos: updatedVideos });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+   const videoFormData=formData.productVideos.filter(
+      (video) => video !== ""
+    ).map((video) => extractVideoId(video));
+
 
     try {
       // Prepare FormData to submit
@@ -104,13 +129,13 @@ const AddProduct = () => {
         formDataToSubmit.append("productImage", image);
       });
       if (pdfFile) formDataToSubmit.append("productPdf", pdfFile);
-
+if(videoFormData) formDataToSubmit.append("productVideos", videoFormData);
       for (let pair of formDataToSubmit.entries()) {
         console.log(pair[0], pair[1]);
       }
       // Send the data to backend API
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/add-product",
+        "http://localhost:8000/api/add-product",
         formDataToSubmit,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -314,6 +339,40 @@ const AddProduct = () => {
               required
             />
           </div>
+          <div className="col-12 mb-3">
+  <label className="form-label">
+    Product YouTube Videos <span className="text-muted">(optional)</span>
+  </label>
+  {formData.productVideos.map((video, index) => (
+    <div key={index} className="d-flex align-items-center mb-2">
+      <input
+        type="text"
+        className="form-control me-2"
+        placeholder={`YouTube URL ${index + 1}`}
+        value={video}
+        onChange={(e) => handleVideoChange(index, e.target.value)}
+      />
+      {formData.productVideos.length > 1 && (
+        <button
+          type="button"
+          className="btn btn-danger me-1"
+          onClick={() => handleRemoveVideo(index)}
+        >
+          Remove
+        </button>
+      )}
+      {index === formData.productVideos.length - 1 && (
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleAddVideo}
+        >
+          Add
+        </button>
+      )}
+    </div>
+  ))}
+</div>
 
           <div className="col-md-6">
             <input

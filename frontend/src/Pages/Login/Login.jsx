@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://api.swhealthcares.com/api/log-in",
+        "http://localhost:8000/api/log-in",
         data
       );
       console.log(res);

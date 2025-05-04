@@ -13,9 +13,11 @@ const EventSchema = new mongoose.Schema({
   eventImages: [
     {
       type: String,
-      required: true
     }
-  ]
+  ],
+  eventVideo:{
+    type: String
+  }
 });
 
 const EventModel=mongoose.model("EventModel",EventSchema)

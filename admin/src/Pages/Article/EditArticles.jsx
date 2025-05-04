@@ -25,7 +25,7 @@ const EditArticles = () => {
     const fetchEventData = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/get-single-events/${id}`
+          `http://localhost:8000/api/get-single-events/${id}`
         );
         setEventData({
           eventName: response.data.eventName,
@@ -89,7 +89,7 @@ const EditArticles = () => {
 
     try {
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/update-events/${id}`,
+        `http://localhost:8000/api/update-events/${id}`,
         formData,
         {
           headers: {

@@ -33,7 +33,7 @@ const ForgetPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/forgot-password",
+        "http://localhost:8000/api/forgot-password",
         { email }
       );
       if (response.data.success) {

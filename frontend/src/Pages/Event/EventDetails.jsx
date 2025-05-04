@@ -10,7 +10,7 @@ const EventDetails = () => {
   const getEventDetails = async () => {
     try {
       const response = await axios.get(
-        `https://api.swhealthcares.com/api/get-single-events/${id}`
+        `http://localhost:8000/api/get-single-events/${id}`
       );
       setEvent(response.data);
     } catch (error) {

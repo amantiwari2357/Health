@@ -2,20 +2,23 @@ const EventModel = require("../Models/EventModel.js");
 const { uploadImage, deleteImage } = require("../utils/Cloudnary.js");
 const { deleteLocalFile } = require("../utils/DeleteImageFromLoaclFolder");
 
+
 const createEvent = async (req, res) => {
   try {
-    const { eventStatus, eventName } = req.body;
+    const { eventStatus, eventName,eventVideo } = req.body;
     // if (!eventName) {
     //   return res.status(400).json({ message: "Event name is required" });
     // }
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No image uploaded" });
-    }
+    // if (!req.files || req.files.length === 0) {
+    //   return res.status(400).json({ message: "No image uploaded" });
+    // }
     if(req.files && req.files.length >10){
       return res.status(400).json({ message: "You can upload maximum 10 images" });
     }
        
     let images = [];
+    if(req.files && req.files.length > 0){
+
     for (let i = 0; i < req.files.length; i++) {
       const imageUrl = await uploadImage(req.files[i].path);
       if (imageUrl) {
@@ -29,26 +32,29 @@ const createEvent = async (req, res) => {
         .status(500)
         .json({ message: "Failed to upload image to Cloudinary" });
     }
-
+  }
     const newEvents = new EventModel({
       eventName,
       eventStatus: eventStatus,
       eventImages: images,
+      eventVideo
     });
 
     await newEvents.save();
 
-    res.status(201).json({ message: "Events created successfully" });
+    console.log("Events created successfully:", newEvents);
+    
+  return  res.status(201).json({ message: "Events created successfully" });
   } catch (error) {
     console.error("Error creating events:", error);
     res.status(500).json({ message: "Server error while creating banner" });
   }
 };
 
-// Get All Events
+
 const getAllEvents = async (req, res) => {
   try {
-    const events = await EventModel.find({"eventStatus": true}).sort({ createdAt: -1 });
+    const events = await EventModel.find().sort({ createdAt: -1 });
     res.status(200).json({ events });
   } catch (error) {
     console.error(error);
@@ -81,7 +87,7 @@ const updateEvent = async (req, res) => {
       return res.status(404).json({ message: "Event not found" });
     }
 
-    const { eventName, eventStatus } = req.body;
+    const { eventName, eventStatus, eventVideo } = req.body;
     if (!eventName && !eventStatus && !req.files) {
       return res
         .status(400)
@@ -114,7 +120,7 @@ if(req.files && req.files.length >10){
     if (eventStatus) {
       event.eventStatus = eventStatus;
     }
-
+event.eventVideo=eventVideo ?? event.eventVideo
     await event.save();
     res.status(200).json({ message: "Events updated successfully", event });
   } catch (error) {

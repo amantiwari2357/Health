@@ -34,7 +34,7 @@ const ProductDetails = () => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-product/${id}`
+          `http://localhost:8000/api/single-product/${id}`
         );
         setProductDetails(response.data.product);
         // Set the first image as the default selected image

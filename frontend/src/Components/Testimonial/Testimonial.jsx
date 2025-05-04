@@ -38,7 +38,7 @@ const [reviews, setReviews] = useState([]);
   const fetchReviews = async () => {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/review/all-reviews"
+        "http://localhost:8000/api/review/all-reviews"
       );
       setReviews(response.data);
     } catch (error) {
