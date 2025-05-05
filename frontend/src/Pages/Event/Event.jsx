@@ -8,7 +8,7 @@ const Events = () => {
   const getapiData = async () => {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/events/all-event"
+        "https://health-4-xkdr.onrender.com/api/events/all-event"
       );
       setData(
         response?.data?.events.filter(

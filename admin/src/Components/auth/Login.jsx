@@ -13,7 +13,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/log-in",
+        "https://health-4-xkdr.onrender.com/api/log-in",
         { email, password },
         { withCredentials: true } // Ensure cookies are sent with the request
       );

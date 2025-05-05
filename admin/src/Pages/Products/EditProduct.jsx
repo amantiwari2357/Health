@@ -41,7 +41,7 @@ const EditProduct = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "https://health-4-xkdr.onrender.com/api/all-category"
         );
         setCategories(response.data); // Set categories to state
       } catch (error) {
@@ -55,7 +55,7 @@ const EditProduct = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-product/${id}`
+          `https://health-4-xkdr.onrender.com/api/single-product/${id}`
         );
         const product = response.data.product;
 
@@ -160,7 +160,7 @@ const EditProduct = () => {
 
       // Send the data to backend API for updating the product
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/update-product/${id}`,
+        `https://health-4-xkdr.onrender.com/api/update-product/${id}`,
         formDataToSubmit,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

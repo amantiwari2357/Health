@@ -11,13 +11,13 @@ const Profile = () => {
   const getUserData = async () => {
     try {
       const res = await axios.get(
-        "https://api.swhealthcares.com/api/get-user/" + userId
+        "https://health-4-xkdr.onrender.com/api/get-user/" + userId
       );
       if (res.status === 200) {
         setData(res.data.data);
         // Assuming orders are fetched from a different API endpoint
         const ordersRes = await axios.get(
-          `https://api.swhealthcares.com/api/all-order-by-userid/${userId}`
+          `https://health-4-xkdr.onrender.com/api/all-order-by-userid/${userId}`
         );
         if (ordersRes.status === 200) {
           setOrders(ordersRes.data.data); // Set the orders from API response

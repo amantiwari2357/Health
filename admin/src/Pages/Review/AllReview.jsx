@@ -14,7 +14,7 @@ const AllReviews = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/review/all-reviews"
+          "https://health-4-xkdr.onrender.com/api/review/all-reviews"
         );
         setReviews(response.data);
         setIsLoading(false);
@@ -40,7 +40,7 @@ const AllReviews = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `https://api.swhealthcares.com/api/review/delete-review/${id}` 
+          `https://health-4-xkdr.onrender.com/api/review/delete-review/${id}` 
         );
         setReviews(reviews.filter((review) => review._id !== id));
         toast.success("Review deleted successfully!");

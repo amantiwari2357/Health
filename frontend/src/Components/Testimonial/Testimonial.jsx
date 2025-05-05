@@ -38,7 +38,7 @@ const [reviews, setReviews] = useState([]);
   const fetchReviews = async () => {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/review/all-reviews"
+        "https://health-4-xkdr.onrender.com/api/review/all-reviews"
       );
       setReviews(response.data);
     } catch (error) {

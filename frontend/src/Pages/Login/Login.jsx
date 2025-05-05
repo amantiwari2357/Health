@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://api.swhealthcares.com/api/log-in",
+        "https://health-4-xkdr.onrender.com/api/log-in",
         data
       );
       console.log(res);

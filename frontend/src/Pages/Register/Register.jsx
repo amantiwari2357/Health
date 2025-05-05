@@ -32,7 +32,7 @@ const Register = () => {
     try {
       if (data.password === cPass) {
         const res = await axios.post(
-          "https://api.swhealthcares.com/api/signup",
+          "https://health-4-xkdr.onrender.com/api/signup",
           data
         );
         if (res.status === 201) {

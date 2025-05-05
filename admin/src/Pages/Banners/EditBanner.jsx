@@ -19,7 +19,7 @@ const EditBanner = () => {
     const fetchBannerData = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-banner/${id}`
+          `https://health-4-xkdr.onrender.com/api/single-banner/${id}`
         );
         setBannerData({
           bannerImage: response.data.banner.bannerImage,
@@ -62,7 +62,7 @@ const EditBanner = () => {
 
     try {
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/update-banner/${id}`,
+        `https://health-4-xkdr.onrender.com/api/update-banner/${id}`,
         formData,
         {
           headers: {

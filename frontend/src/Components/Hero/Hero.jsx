@@ -21,7 +21,7 @@ const Hero = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/all-banner"
+        "https://health-4-xkdr.onrender.com/api/all-banner"
       );
       console.log(response);
       const newData = response.data.banners;
@@ -37,7 +37,7 @@ const Hero = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/get-product"
+        "https://health-4-xkdr.onrender.com/api/get-product"
       );
       const productData = response.data.products || [];
       const bestsellers = productData.filter(
@@ -179,7 +179,7 @@ const Hero = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/all-events"
+        "https://health-4-xkdr.onrender.com/api/all-events"
       );
       console.log("fetch article", response.data);
 

@@ -15,7 +15,7 @@ const AllVouchers = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/coupon/all-vouchers"
+          "https://health-4-xkdr.onrender.com/api/coupon/all-vouchers"
         );
         setVouchers(response.data.data);
       } catch (error) {
@@ -42,7 +42,7 @@ const AllVouchers = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `https://api.swhealthcares.com/api/coupon/delete-vouchers/${id}`
+          `https://health-4-xkdr.onrender.com/api/coupon/delete-vouchers/${id}`
         );
         setVouchers(vouchers.filter((event) => event._id !== id));
         Swal.fire("Deleted!", "Your voucher has been deleted.", "success");

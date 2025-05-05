@@ -64,7 +64,7 @@ const InvoicePDF = ({ order }) => {
         console.log("order1", product.price);
         try {
           const response = await axios.get(
-            `https://api.swhealthcares.com/api/single-product/${product.productId}`
+            `https://health-4-xkdr.onrender.com/api/single-product/${product.productId}`
           );
           const productDetails = response.data.product;
 
@@ -175,7 +175,7 @@ const EditOrder = () => {
     const fetchOrder = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-order-data/${orderId}`
+          `https://health-4-xkdr.onrender.com/api/single-order-data/${orderId}`
         );
         if (response.data.success) {
           setOrder(response.data.data);
@@ -198,7 +198,7 @@ const EditOrder = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/update-order/${orderId}`,
+        `https://health-4-xkdr.onrender.com/api/update-order/${orderId}`,
         {
           orderStatus,
           paymentStatus,

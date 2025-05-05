@@ -22,7 +22,7 @@ exports.checkout = async (req, res) => {
   if (pincode) {
     try {
       const response = await axios.get(
-        "https://api.swhealthcares.com/api/all-pincode"
+        "https://health-4-xkdr.onrender.com/api/all-pincode"
       );
       const pinCodeData = response.data.find(
         (item) => item.pincode === parseInt(pincode)

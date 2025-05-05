@@ -28,7 +28,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://api.swhealthcares.com/api/send-enquery",
+        "https://health-4-xkdr.onrender.com/api/send-enquery",
         data
       );
       if (res.status === 200) {

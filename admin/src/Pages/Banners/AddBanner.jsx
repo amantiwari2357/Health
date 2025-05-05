@@ -35,7 +35,7 @@ const AddBanner = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/create-banner",
+        "https://health-4-xkdr.onrender.com/api/create-banner",
         formData,
         {
           headers: {

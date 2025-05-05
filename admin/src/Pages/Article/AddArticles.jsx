@@ -70,7 +70,7 @@ const AddArticles = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/add-events",
+        "https://health-4-xkdr.onrender.com/api/add-events",
         formData,
         {
           headers: {

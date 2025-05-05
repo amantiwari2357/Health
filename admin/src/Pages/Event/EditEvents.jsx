@@ -26,7 +26,7 @@ const extractVideoId = (url) => {
     const fetcheventsData = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/events/single-event/${id}`
+          `https://health-4-xkdr.onrender.com/api/events/single-event/${id}`
         );
 
         setEventsData({
@@ -90,7 +90,7 @@ const extractVideoId = (url) => {
     }
     try {
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/events/update-event/${id}`,
+        `https://health-4-xkdr.onrender.com/api/events/update-event/${id}`,
         formData,
         {
           headers: {

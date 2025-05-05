@@ -18,7 +18,7 @@ const EditPincode = () => {
     const fetchPincodeDetails = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-pincode/${id}`
+          `https://health-4-xkdr.onrender.com/api/single-pincode/${id}`
         );
         setPincodeData(response.data);
       } catch (error) {
@@ -65,7 +65,7 @@ const EditPincode = () => {
 
     try {
       await axios.put(
-        `https://api.swhealthcares.com/api/update-pincode/${id}`,
+        `https://health-4-xkdr.onrender.com/api/update-pincode/${id}`,
         pincodeData
       );
       toast.success("Pincode updated successfully!");

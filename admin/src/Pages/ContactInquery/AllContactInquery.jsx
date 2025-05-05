@@ -10,7 +10,7 @@ const AllContactInquery = () => {
     const fetchContacts = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-contacts"
+          "https://health-4-xkdr.onrender.com/api/all-contacts"
         );
         setContacts(response.data.contacts);
       } catch (err) {
@@ -30,7 +30,7 @@ const AllContactInquery = () => {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `https://api.swhealthcares.com/api/delete-contact/${id}`
+        `https://health-4-xkdr.onrender.com/api/delete-contact/${id}`
       );
       console.log(response.data.message);
       setContacts(contacts.filter((contact) => contact._id !== id)); // Remove deleted contact from the state

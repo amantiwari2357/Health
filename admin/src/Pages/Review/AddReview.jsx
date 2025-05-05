@@ -50,7 +50,7 @@ const AddReview = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/review/add-review", 
+        "https://health-4-xkdr.onrender.com/api/review/add-review", 
         {
           review: reviewData.review,
           location: reviewData.locationName,

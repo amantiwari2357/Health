@@ -49,7 +49,7 @@ const AddPincode = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/add-pincode",
+        "https://health-4-xkdr.onrender.com/api/add-pincode",
         pincodeData
       );
       toast.success("Pincode added successfully!");

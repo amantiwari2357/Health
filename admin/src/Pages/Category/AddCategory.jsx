@@ -23,7 +23,7 @@ const AddCategory = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/add-category",
+        "https://health-4-xkdr.onrender.com/api/add-category",
         formData,
         {
           headers: {

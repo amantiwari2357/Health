@@ -22,7 +22,7 @@ const EditSubCategory = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.swhealthcares.com/api/all-category"
+          "https://health-4-xkdr.onrender.com/api/all-category"
         );
         setCategories(response.data); // Assuming response.data is an array of categories
       } catch (error) {
@@ -34,7 +34,7 @@ const EditSubCategory = () => {
     const fetchSubCategory = async () => {
       try {
         const response = await axios.get(
-          `https://api.swhealthcares.com/api/single-subcategory/${id}`
+          `https://health-4-xkdr.onrender.com/api/single-subcategory/${id}`
         );
         const {
           categoryName,
@@ -83,7 +83,7 @@ const EditSubCategory = () => {
     });
     try {
       const response = await axios.put(
-        `https://api.swhealthcares.com/api/update-subcategory/${id}`,
+        `https://health-4-xkdr.onrender.com/api/update-subcategory/${id}`,
         apiFormData,
         {
           headers: {

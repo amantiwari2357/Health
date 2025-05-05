@@ -23,7 +23,7 @@ const AddVouchers = () => {
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/coupon/create-vouchers",
+        "https://health-4-xkdr.onrender.com/api/coupon/create-vouchers",
         formData
       );
       setIsLoading(false);

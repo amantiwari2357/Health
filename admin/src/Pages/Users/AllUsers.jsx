@@ -9,7 +9,7 @@ const AllUsers = () => {
   const getApiData = async () => {
     try {
       const res = await axios.get(
-        "https://api.swhealthcares.com/api/all-users",
+        "https://health-4-xkdr.onrender.com/api/all-users",
         {
           withCredentials: true, // Axios will automatically send the cookie with the request
         }
@@ -43,7 +43,7 @@ const AllUsers = () => {
       if (result.isConfirmed) {
         try {
           const res = await axios.delete(
-            `https://api.swhealthcares.com/api/delete-user/${id}`,
+            `https://health-4-xkdr.onrender.com/api/delete-user/${id}`,
             {
               withCredentials: true, // Include the cookie with the request
             }

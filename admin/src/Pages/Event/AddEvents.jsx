@@ -57,7 +57,7 @@ if(eventVideo){
 
     try {
       const response = await axios.post(
-        "https://api.swhealthcares.com/api/events/create-event",
+        "https://health-4-xkdr.onrender.com/api/events/create-event",
         formData,
         {
           headers: {
