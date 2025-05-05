@@ -28,35 +28,13 @@ const ReviewRouter = require("./Routes/ReviewRouter");
 const app = express();
 
 // Allowed origins (your frontend domains)
-const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://localhost:3002',
-    'https://swhealthcares.com',
-    'https://www.swhealthcares.com',
-    'https://admin.swhealthcares.com',
-    'http://swhealthcares.com',
-    'https://health-eme5.vercel.app',
-    'https://health-five-eta.vercel.app'
-];
-
-// CORS configuration
-const corsOptions = {
+app.use(cors({
     origin: (origin, callback) => {
         console.log("Origin attempting CORS:", origin);
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.error("Blocked by CORS:", origin);
-            callback(new Error('Not allowed by CORS'));
-        }
+        callback(null, true);
     },
-    credentials: true,
-};
-
-
-// Apply CORS options to the app
-app.use(cors(corsOptions));
+    credentials: true
+}));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
