@@ -4,11 +4,11 @@ const crypto = require("crypto");
 const axios = require("axios");
 const CouponCode = require("../Models/VocherModel");
 
-const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  rzp_test : process.env.RAZORPAY_KEY_TEST,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// const razorpayInstance = new Razorpay({
+//   key_id: process.env.RAZORPAY_KEY_ID,
+//   rzp_test : process.env.RAZORPAY_KEY_TEST,
+//   key_secret: process.env.RAZORPAY_KEY_SECRET,
+// });
 
 exports.checkout = async (req, res) => {
   console.log("Checkout route hit");
@@ -76,25 +76,25 @@ exports.checkout = async (req, res) => {
       totalAmount,
       shippingCost,
     });
-    if (paymentMethod === "Online") {
-      const razorpayOrder = await razorpayInstance.orders.create({
-        amount: totalAmount * 100,
-        currency: "INR",
-        receipt: checkout._id.toString(),
-        payment_capture: 1,
-      });
-      console.log("", razorpayOrder);
-      checkout.paymentInfo = {
-        transactionId: razorpayOrder.id,
-        orderId: razorpayOrder.receipt,
-      };
-      await checkout.save();
-      return res.status(201).json({
-        message: "Checkout successful. Payment initiated via Razorpay.",
-        checkout,
-        razorpayOrder,
-      });
-    }
+    // if (paymentMethod === "Online") {
+    //   const razorpayOrder = await razorpayInstance.orders.create({
+    //     amount: totalAmount * 100,
+    //     currency: "INR",
+    //     receipt: checkout._id.toString(),
+    //     payment_capture: 1,
+    //   });
+    //   console.log("", razorpayOrder);
+    //   checkout.paymentInfo = {
+    //     transactionId: razorpayOrder.id,
+    //     orderId: razorpayOrder.receipt,
+    //   };
+    //   await checkout.save();
+    //   return res.status(201).json({
+    //     message: "Checkout successful. Payment initiated via Razorpay.",
+    //     checkout,
+    //     razorpayOrder,
+    //   });
+    // }
 
     await checkout.save();
     res.status(201).json({ message: "Checkout successful", checkout });
@@ -104,38 +104,38 @@ exports.checkout = async (req, res) => {
   }
 };
 
-exports.verifyPayment = async (req, res) => {
-  const {
-    razorpay_payment_id,
-    razorpay_order_id,
-    razorpay_signature,
-    order_id,
-  } = req.body;
-  console.log(req.body);
-  const checkout = await Checkout.findById(order_id);
-  console.log(checkout);
-  if (!checkout) {
-    return res.status(400).json({ error: "Order not found" });
-  }
-  const body = razorpay_order_id + "|" + razorpay_payment_id;
-  const expectedSignature = crypto
-    .createHmac("sha256", razorpayInstance.key_secret)
-    .update(body.toString())
-    .digest("hex");
+// exports.verifyPayment = async (req, res) => {
+//   const {
+//     razorpay_payment_id,
+//     razorpay_order_id,
+//     razorpay_signature,
+//     order_id,
+//   } = req.body;
+//   console.log(req.body);
+//   const checkout = await Checkout.findById(order_id);
+//   console.log(checkout);
+//   if (!checkout) {
+//     return res.status(400).json({ error: "Order not found" });
+//   }
+//   const body = razorpay_order_id + "|" + razorpay_payment_id;
+//   const expectedSignature = crypto
+//     .createHmac("sha256", razorpayInstance.key_secret)
+//     .update(body.toString())
+//     .digest("hex");
 
-  if (expectedSignature === razorpay_signature) {
-    checkout.paymentStatus = "Successfull";
-    checkout.paymentInfo.paymentId = razorpay_payment_id;
-    checkout.paymentInfo.razorpaySignature = razorpay_signature;
-    await checkout.save();
+//   if (expectedSignature === razorpay_signature) {
+//     checkout.paymentStatus = "Successfull";
+//     checkout.paymentInfo.paymentId = razorpay_payment_id;
+//     checkout.paymentInfo.razorpaySignature = razorpay_signature;
+//     await checkout.save();
 
-    return res
-      .status(200)
-      .json({ message: "Payment verified successfully", checkout });
-  } else {
-    return res.status(400).json({ error: "Payment verification failed" });
-  }
-};
+//     return res
+//       .status(200)
+//       .json({ message: "Payment verified successfully", checkout });
+//   } else {
+//     return res.status(400).json({ error: "Payment verification failed" });
+//   }
+// };
 
 exports.getData = async (req, res) => {
   try {
