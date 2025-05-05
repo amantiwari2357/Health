@@ -36,6 +36,8 @@ const allowedOrigins = [
     'https://www.swhealthcares.com',
     'https://admin.swhealthcares.com',
     'http://swhealthcares.com',
+    'https://health-eme5.vercel.app',
+    'https://health-five-eta.vercel.app'
 ];
 
 // CORS configuration
