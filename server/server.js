@@ -11,8 +11,9 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const morgan = require("morgan");
 
-
 const { connectDB } = require("./DB/ConnectDatabase");
+
+// Routers
 const CategoryRouter = require("./Routes/categoryRoutes");
 const SubcategoryRouter = require("./Routes/SubcategoryRouter");
 const ProductRouter = require("./Routes/ProductRoutes");
@@ -25,58 +26,73 @@ const ArticleRouter = require("./Routes/ArticleRouter");
 const EventRouter = require("./Routes/EventRoutes");
 const VouchersRouter = require("./Routes/VocherRouter");
 const ReviewRouter = require("./Routes/ReviewRouter");
+
 const app = express();
 
-// Allowed origins (your frontend domains)
+// ✅ CORS Configuration
 app.use(cors({
     origin: (origin, callback) => {
+        if (!origin) {
+            return callback(null, true); // Allow non-browser requests (like curl, Postman)
+        }
         console.log("Origin attempting CORS:", origin);
-        callback(null, true);
+        return callback(null, true); // Allow all origins
     },
-    credentials: true
+    credentials: true,
 }));
+
+// Logging
 app.use(morgan("dev"));
+
+// Cookie parser
 app.use(cookieParser());
 
+// Rate Limiter
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000, // Limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 1000,
     message: "Too many requests from this IP, please try again later.",
     standardHeaders: true,
     legacyHeaders: false,
 });
-
 app.use(limiter);
+
+// Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(helmet()); // Set secure HTTP headers
-app.use(mongoSanitize()); // Prevent NoSQL injection
-app.use(xss()); // Sanitize user input to prevent XSS
-app.use(hpp()); // Prevent HTTP Parameter Pollution
+// Security middlewares
+app.use(helmet());
+app.use(mongoSanitize());
+app.use(xss());
+app.use(hpp());
 
-app.set(express.static("./Public"));
+// Serve static files
+app.use(express.static("./Public"));
 
+// Root route
 app.get("/", (req, res) => {
     res.send("Server is running");
 });
 
-// Routes
-app.use("/api", CategoryRouter); //2
-app.use("/api", SubcategoryRouter); //3
-app.use("/api", ProductRouter); //4
-app.use("/api", UserRouter); // 1
+// API Routes
+app.use("/api", CategoryRouter);
+app.use("/api", SubcategoryRouter);
+app.use("/api", ProductRouter);
+app.use("/api", UserRouter);
 app.use("/api", CheckoutRouter);
-app.use("/api", BannerRouter); //5
-app.use("/api", PincodeRouter); //6
+app.use("/api", BannerRouter);
+app.use("/api", PincodeRouter);
 app.use("/api", ContactRouter);
 app.use("/api", ArticleRouter);
-app.use("/api/events", EventRouter)
-app.use("/api/coupon", VouchersRouter)
-app.use("/api/review",ReviewRouter)
-// Start the server
+app.use("/api/events", EventRouter);
+app.use("/api/coupon", VouchersRouter);
+app.use("/api/review", ReviewRouter);
+
+// Start server
 app.listen(process.env.PORT, () => {
     console.log(`Server is running at ${process.env.PORT} port`);
 });
 
+// Connect to DB
 connectDB();
